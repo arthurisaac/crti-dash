@@ -4,8 +4,7 @@ import {onAuthStateChanged} from "firebase/auth";
 import {auth} from "../firebase";
 
 export default function Sidebar() {
-    const [user, setUser] = useState({});
-    const [show, setShow] = useState(false);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {

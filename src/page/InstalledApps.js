@@ -31,7 +31,7 @@ export default function InstalledApps(props) {
         }
     }, [phone])
 
-    return <div style={{ margin: 20 }}>
+    return <div className="card p-3" >
         <h1>Applications</h1>
         <table className="table">
             <thead>

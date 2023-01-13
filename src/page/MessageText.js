@@ -19,7 +19,7 @@ export default function MessageText(props) {
         }
     }, [phone])
 
-    return <div style={{margin: 20}}>
+    return <div className="card p-3" >
         <h1>Messages</h1>
 
         <table className="table">
@@ -37,6 +37,7 @@ export default function MessageText(props) {
                     <tr key={index}>
                         <td>{message.number}</td>
                         <td>{message.text}</td>
+                        <td>{message.type === 1 ? 'Entrant' : 'Sortant' }</td>
                         <td>{new Date(message.date).toUTCString()}</td>
                     </tr>
                 ))

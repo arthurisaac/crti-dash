@@ -20,8 +20,8 @@ export default function Contacts(props) {
         }
     }, [phone])
 
-    return <div style={{ margin: 20 }}>
-        <h1>CONTACS</h1>
+    return <div className="card p-3" >
+        <h1>CONTACTS</h1>
 
         <table className="table">
             <thead>

@@ -24,7 +24,7 @@ export default function CallLog(props) {
         }
     }, [phone])
 
-    return <div style={{ margin: 20 }}>
+    return <div className="card p-3" >
         <h1>Log d'appels</h1>
 
         <table className="table">
