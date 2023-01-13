@@ -1,7 +1,19 @@
-import { useNavigate } from 'react-router-dom'
+import {NavLink} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {onAuthStateChanged} from "firebase/auth";
+import {auth} from "../firebase";
 
 export default function Sidebar() {
-    const navigate = useNavigate();
+    const [user, setUser] = useState({});
+    const [show, setShow] = useState(false);
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUser(user);
+            }
+        })
+    })
 
     const menus = [
         {
@@ -31,15 +43,48 @@ export default function Sidebar() {
     ]
 
     return <>
-        <ul>
-            {
-                menus.map( menu => (
-                    <li key={menu.name}>
-                        <a onClick={() => navigate(menu.url)} >{menu.name}</a>
-                    </li>
-                ))
-            }
-        </ul>
+        {
+            user ? <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <a href="/"
+                       className="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <span className="fs-5 d-none d-sm-inline">CRIT</span>
+                    </a>
+                    <ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+                        id="menu">
+                        {
+                            menus.map( (menu, i) => (
+                                <li className="nav-item" key={i}>
+                                    <NavLink to={menu.url} className="nav-link align-middle px-0">
+                                        <i className="fs-4 bi-house"/> <span
+                                        className="ms-1 d-none d-sm-inline">{menu.name}</span>
+                                    </NavLink>
+                                </li>
+                            ))
+                        }
+
+                    </ul>
+                    <hr />
+                    <div className="dropdown pb-4">
+                        <a href="#"
+                           className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                           id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30"
+                                 className="rounded-circle" />
+                            <span className="d-none d-sm-inline mx-1">{user?.email}</span>
+                        </a>
+                        <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
+                            <li><a className="dropdown-item" href="#">Settings</a></li>
+                            <li>
+                                <hr className="dropdown-divider" />
+                            </li>
+                            <li><a className="dropdown-item" href="#">Déconnexion</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> : <></>
+        }
+
         </>
 
     // const [phones, setPhones] = useState([]);

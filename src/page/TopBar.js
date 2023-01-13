@@ -52,8 +52,8 @@ export default function TopBar(props) {
 
         </select>
 
-        <button onClick={handleLogout}>
-            Logout
+        <button className="btn btn-sm" style={{ float: 'right'}} onClick={handleLogout}>
+            Déconnexion
         </button>
     </>
 }

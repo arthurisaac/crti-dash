@@ -22,10 +22,25 @@ export default function Contacts(props) {
 
     return <div style={{ margin: 20 }}>
         <h1>CONTACS</h1>
-        {
-            contacts.map((contact, index) => (
-                <p key={index}>{contact.name} {contact.number}</p>
-            ))
-        }
+
+        <table className="table">
+            <thead>
+                <tr>
+                    <td>Nom du contact</td>
+                    <td>Numéro de téléphon</td>
+                </tr>
+            </thead>
+            <tbody>
+            {
+                contacts.map((contact, index) => (
+                    <tr key={index}>
+                        <td>{contact.name}</td>
+                        <td>{contact.number}</td>
+                    </tr>
+                ))
+            }
+            </tbody>
+
+        </table>
     </div>
 }

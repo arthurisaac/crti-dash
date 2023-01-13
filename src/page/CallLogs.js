@@ -25,11 +25,30 @@ export default function CallLog(props) {
     }, [phone])
 
     return <div style={{ margin: 20 }}>
-        <h1>Call Log</h1>
-        {
-            calls.map((call, index) => (
-                <p key={index}>{call.number} {call.duration} {call.type} {new Date(call.date).toUTCString()}</p>
-            ))
-        }
+        <h1>Log d'appels</h1>
+
+        <table className="table">
+            <thead>
+            <tr>
+                <td>Numéro de téléphone</td>
+                <td>Durée d'appel</td>
+                <td>Type</td>
+                <td>Date</td>
+            </tr>
+            </thead>
+            <tbody>
+            {
+                calls.map((call, index) => (
+                    <tr key={index}>
+                        <td>{call.number}</td>
+                        <td>{call.duration}</td>
+                        <td>{call.type}</td>
+                        <td>{new Date(call.date).toUTCString()}</td>
+                    </tr>
+                ))
+            }
+            </tbody>
+        </table>
+
     </div>
 }

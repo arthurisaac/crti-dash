@@ -19,19 +19,25 @@ function App() {
 
     return (
         <Router>
-            <Sidebar/>
-            <TopBar setPhone={setPhone}/>
-            <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/home" element={<Home/>}/>
-                <Route path="/signup" element={<Signup/>}/>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/contacts" element={<Contacts phone={phone}/>}/>
-                <Route path="/sms" element={<MessageText  phone={phone}/>}/>
-                <Route path="/call-logs" element={<CallLog phone={phone}/>}/>
-                <Route path="/installed-apps" element={<InstalledApps phone={phone}/>}/>
-                <Route path="/emplacement-gps" element={<Geolocation phone={phone}/>}/>
-            </Routes>
+            <div className="container-fluid">
+                <div className="row flex-nowrap">
+                    <Sidebar/>
+                    <div className="col py-3">
+                        <TopBar setPhone={setPhone}/>
+                        <Routes>
+                            <Route path="/" element={<Home/>}/>
+                            <Route path="/home" element={<Home/>}/>
+                            <Route path="/signup" element={<Signup/>}/>
+                            <Route path="/login" element={<Login/>}/>
+                            <Route path="/contacts" element={<Contacts phone={phone}/>}/>
+                            <Route path="/sms" element={<MessageText  phone={phone}/>}/>
+                            <Route path="/call-logs" element={<CallLog phone={phone}/>}/>
+                            <Route path="/installed-apps" element={<InstalledApps phone={phone}/>}/>
+                            <Route path="/emplacement-gps" element={<Geolocation phone={phone}/>}/>
+                        </Routes>
+                    </div>
+                </div>
+            </div>
         </Router>
     );
 }

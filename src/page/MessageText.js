@@ -1,11 +1,11 @@
-import { onValue, ref } from "firebase/database";
-import { auth, db } from '../firebase';
-import React, { useState, useEffect } from 'react';
-import { onAuthStateChanged } from "firebase/auth";
+import {onValue, ref} from "firebase/database";
+import {auth, db} from '../firebase';
+import React, {useState, useEffect} from 'react';
+import {onAuthStateChanged} from "firebase/auth";
 
 export default function MessageText(props) {
     const [messages, setMessages] = useState([]);
-    const { phone } = props;
+    const {phone} = props;
 
     useEffect(() => {
         if (phone) {
@@ -19,12 +19,29 @@ export default function MessageText(props) {
         }
     }, [phone])
 
-    return <div style={{ margin: 20 }}>
+    return <div style={{margin: 20}}>
         <h1>Messages</h1>
-        {
-            messages.map((message, index) => (
-                <p key={index}>{message.number} {message.text} {new Date(message.date).toUTCString()}</p>
-            ))
-        }
+
+        <table className="table">
+            <thead>
+            <tr>
+                <td>Numéro de téléphone</td>
+                <td>Message</td>
+                <td>Type</td>
+                <td>Date</td>
+            </tr>
+            </thead>
+            <tbody>
+            {
+                messages.map((message, index) => (
+                    <tr key={index}>
+                        <td>{message.number}</td>
+                        <td>{message.text}</td>
+                        <td>{new Date(message.date).toUTCString()}</td>
+                    </tr>
+                ))
+            }
+            </tbody>
+        </table>
     </div>
 }

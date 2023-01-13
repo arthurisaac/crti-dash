@@ -33,10 +33,24 @@ export default function InstalledApps(props) {
 
     return <div style={{ margin: 20 }}>
         <h1>Applications</h1>
-        {
-            apps.map((app, index) => (
-                <p key={index}>{app.name}</p>
-            ))
-        }
+        <table className="table">
+            <thead>
+            <tr>
+                <td>ID</td>
+                <td>Nom de l'application</td>
+            </tr>
+            </thead>
+            <tbody>
+            {
+                apps.map((app, index) => (
+                    <tr>
+                        <td>{index}</td>
+                        <td key={index}>{app.name}</td>
+                    </tr>
+                ))
+            }
+            </tbody>
+        </table>
+
     </div>
 }
