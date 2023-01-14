@@ -20,21 +20,23 @@ export default function Geolocation(props) {
     useEffect(() => {
         if (phone) {
             onAuthStateChanged(auth, (user) => {
-                const query = ref(db, `${user.uid}/${phone}`);
+                const query = ref(db, `user/${user.uid}/${phone}/location`);
                 onValue(query, (snapshot) => {
                     const data = snapshot.val();
-                    const position = data["CURRENT_POSITION"];
-                    console.log(position.lat, position.long);
-                    setPosition({lat: position.lat, long: position.long})
+                    const position = data["data"];
+                    if (position) {
+                        setPosition({lat: position.latitude, long: position.longitude})
+                    }
+
                 });
             })
         }
     }, [phone])
 
-    return <div className="card" style={{ height: '70%'}}>
+    return <div className="card" style={{height: '70%'}}>
         <div style={{height: '100vh', width: '100%'}}>
-            <GoogleMapReact
-                bootstrapURLKeys={{key: ""}}
+            {position ? <GoogleMapReact
+                bootstrapURLKeys={{key: "AIzaSyCMPfgRI9IUDK66_a_BYOVunqfxfqEoy00"}}
                 defaultCenter={{
                     lat: 0,
                     lng: 0,
@@ -52,81 +54,8 @@ export default function Geolocation(props) {
                     text={phone}
 
                 />
-            </GoogleMapReact>
+            </GoogleMapReact> : <div>Position non récupéré</div>
+            }
         </div>
     </div>
 }
-
-/*
-export class Geolocation extends Component {
-
-    state = {
-        lat: 0,
-        long: 0,
-        showMap: false,
-        phone: this.props.phone
-    }
-
-    componentDidMount() {
-        if (this.state.phone) {
-            this.getData()
-        }
-    }
-
-
-    getData() {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const query = ref(db, `${user.uid}/${this.state.phone}`);
-                onValue(query, (snapshot) => {
-                    const data = snapshot.val();
-                    const position = data["CURRENT_POSITION"];
-                    console.log(position.lat, position.long);
-                    this.setState({
-                        lat: position.lat,
-                        long: position.long
-                    })
-                    console.log(this.state.lat, this.state.long)
-                });
-            } else {
-                this.setState({
-                    showMap: true,
-                })
-            }
-
-        });
-    }
-
-    render() {
-        return (
-            <div className="home-content">
-                <Map
-                    google={this.props.google}
-                    zoom={14}
-                    style={mapStyles}
-                    initialCenter={
-                        {
-                            lat: this.state.lat,
-                            lng: this.state.long
-                        }
-                    }
-                    center={
-                        {
-                            lat: this.state.lat,
-                            lng: this.state.long
-                        }
-                    }
-                >
-                    <Marker
-                        position={{ lat: this.state.lat, lng: this.state.long }}
-                        title="derniere position"
-                    />
-                </Map>
-            </div>
-        );
-    }
-}
-
-export default GoogleApiWrapper({
-    apiKey: 'AIzaSyCMPfgRI9IUDK66_a_BYOVunqfxfqEoy00'
-})(Geolocation);*/

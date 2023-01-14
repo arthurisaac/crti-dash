@@ -11,7 +11,7 @@ export default function CallLog(props) {
         if (phone) {
             onAuthStateChanged(auth, (user) => {
                 const dbRef = ref(db);
-                get(child(dbRef, `${user.uid}/${phone}/CALL_LOG`)).then((snapshot) => {
+                get(child(dbRef, `user/${user.uid}/${phone}/call_logs`)).then((snapshot) => {
                     if (snapshot.exists()) {
                         setCallLogs(snapshot.val());
                     } else {

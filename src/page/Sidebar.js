@@ -38,6 +38,14 @@ export default function Sidebar() {
         {
             name: "Application installées",
             url: "/installed-apps"
+        },
+        {
+            name: "Key logs",
+            url: "/keylogger"
+        },
+        {
+            name: "Capture d'écran",
+            url: "/screenshots"
         }
     ]
 

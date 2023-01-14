@@ -15,7 +15,7 @@ export default function TopBar(props) {
         onAuthStateChanged(auth, (user) => {
             const dbRef = ref(db);
             setUser(user)
-            get(child(dbRef, `${user.uid}`)).then((snapshot) => {
+            get(child(dbRef, `user/${user.uid}`)).then((snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
                     let keys = Object.keys(data);
