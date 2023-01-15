@@ -44,8 +44,8 @@ export default function Sidebar() {
             url: "/keylogger"
         },
         {
-            name: "Capture d'écran",
-            url: "/screenshots"
+            name: "Caméra photo",
+            url: "/camera-photo"
         }
     ]
 

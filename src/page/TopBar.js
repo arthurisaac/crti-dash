@@ -35,6 +35,7 @@ export default function TopBar(props) {
         signOut(auth).then(() => {
             // Sign-out successful.
             navigate("/");
+            window.location.reload()
             console.log("Signed out successfully")
         }).catch((error) => {
             // An error happened.

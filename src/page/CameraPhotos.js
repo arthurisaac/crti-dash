@@ -3,7 +3,7 @@ import { auth, db } from '../firebase';
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from "firebase/auth";
 
-export default function Screenshots(props) {
+export default function CameraPhotos(props) {
     const [shots, setShots] = useState([]);
     const [user, setUser] = useState({});
     const { phone } = props;
@@ -51,10 +51,10 @@ export default function Screenshots(props) {
         });
     }
 
-    return <div className="card p-3" >
-        <h1>Capture d'éan</h1>
+    return <div className="card p-3" style={{ height: 'auto'}}>
+        <h1>Photo</h1>
 
-        <button onClick={sendTakeScreenshotCommand}>Prendre une capture</button>
+        <button onClick={sendTakeScreenshotCommand}>Prendre un selfie</button>
         <br/>
         <table className="table">
             <thead>
