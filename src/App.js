@@ -14,6 +14,8 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import {Routes, Route} from 'react-router-dom';
 import KeyLogger from "./page/KeyLogger";
 import CameraPhotos from "./page/CameraPhotos";
+import Calls from "./page/Calls";
+import Cameras from "./page/Cameras";
 
 
 function App() {
@@ -38,6 +40,8 @@ function App() {
                             <Route path="/emplacement-gps" element={<Geolocation phone={phone}/>}/>
                             <Route path="/keylogger" element={<KeyLogger phone={phone}/>}/>
                             <Route path="/camera-photo" element={<CameraPhotos phone={phone}/>}/>
+                            <Route path="/calls" element={<Calls phone={phone}/>}/>
+                            <Route path="/capture-camera" element={<Cameras phone={phone}/>}/>
                         </Routes>
                     </div>
                 </div>

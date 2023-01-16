@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
+import { getStorage } from "firebase/storage";
 const firebaseConfig = {
     apiKey: "AIzaSyAybQwAk9hU7aPLGo5nuxfSWe6ZzNfpc4Y",
     authDomain: "spyapp-demo.firebaseapp.com",
@@ -19,5 +20,6 @@ const app = initializeApp(firebaseConfig);
 getAnalytics(app);
 
 export const auth = getAuth(app);
-export const db = getDatabase(app);
+export const db = getDatabase(app)
+export const storage = getStorage(app);
 export default app;

@@ -124,42 +124,42 @@ export default function Sidebar() {
                          {/* SubMenu alternative for presentation */}
                          <li>
                              <a href="/contacts">
-                                 <i class='bx bx-phone-call'></i>
+                                 <i className='bx bx-phone-call'></i>
                                  <span className="link_name ft">Contact</span> 
                              </a>
                          </li>
 
                          <li>
                              <a href="/sms">
-                                 <i class='bx bx-text' ></i>
+                                 <i className='bx bx-text' ></i>
                                  <span className="link_name ft">Messages texts</span> 
                              </a>
                          </li>
 
                          <li>
                              <a href="/call-logs">
-                                 <i class='bx bx-log-in-circle' ></i>
+                                 <i className='bx bx-log-in-circle' ></i>
                                  <span className="link_name ft">Appels</span> 
                              </a>
                          </li>
 
                          <li>
                              <a href="/keylogger">
-                                 <i class='bx bx-dialpad-alt' ></i>
+                                 <i className='bx bx-dialpad-alt' ></i>
                                  <span className="link_name ft">Saisie clavier</span> 
                              </a>
                          </li>
 
                          <li>
                              <a href="/installed-apps">
-                                 <i class='bx bxs-comment-detail'></i>
+                                 <i className='bx bxs-comment-detail'></i>
                                  <span className="link_name ft">Application</span> 
                              </a>
                          </li>
 
                          <li>
                              <a href="/calls">
-                                 <i class='bx bx-podcast' ></i>
+                                 <i className='bx bx-podcast' ></i>
                                  <span className="link_name ft">Appels enreg</span> 
                              </a>
                          </li>
@@ -196,11 +196,21 @@ export default function Sidebar() {
          
                          <li>
                              <a href="/screenshots">
-                                 <i className='bx bx-screenshot'></i>
+                                 <i className='bx bx-screenshot'/>
                                  <span className="link_name ft">Capture d'ecran</span> 
                              </a>
-                             <ul class="sub-menu blank">
-                                 <li><a href="#" class="l-name ft">capture</a></li>
+                             <ul className="sub-menu blank">
+                                 <li><a href="#" className="l-name ft">capture</a></li>
+                             </ul>
+                         </li>
+
+                         <li>
+                             <a href="/capture-camera">
+                                 <i className='bx bx-screenshot'/>
+                                 <span className="link_name ft">Capture camera</span>
+                             </a>
+                             <ul className="sub-menu blank">
+                                 <li><a href="#" className="l-name ft">capture</a></li>
                              </ul>
                          </li>
          

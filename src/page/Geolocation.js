@@ -9,8 +9,9 @@ import {useEffect, useState} from "react";
 import pin from '../images/map-pin.svg';
 
 const AnyReactComponent = ({text}) => <div>
-    <img src={pin} alt="pin" style={{width: 20}}/>
-    {text}
+    {/*<img src={pin} alt="pin" style={{width: 20}}/>*/}
+    <i className='bx bx-mobile' style={{ color: 'red'}}/>
+    <div style={{ width: 80}}>{text}</div>
 </div>;
 
 export default function Geolocation(props) {
