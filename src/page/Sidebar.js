@@ -156,6 +156,13 @@ export default function Sidebar() {
                                  <span className="link_name ft">Application</span> 
                              </a>
                          </li>
+
+                         <li>
+                             <a href="/calls">
+                                 <i class='bx bx-podcast' ></i>
+                                 <span className="link_name ft">Appels enreg</span> 
+                             </a>
+                         </li>
                         {/* End SubMenu alternative for presentation */}
          
                          <li>
