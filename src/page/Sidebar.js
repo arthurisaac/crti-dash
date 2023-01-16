@@ -112,26 +112,60 @@ export default function Sidebar() {
                                  </a>
                                  <i className='bx bx-chevron-down arrow'></i>
                              </div>
-                             <ul className="sub-menu">
-                                 {/* <li><a class="l-name ft" href="#">Contact</a></li> */}
+                             {/* <ul className="sub-menu">
                                  <li><a href="/contacts">Contact</a></li>
                                  <li><a href="/sms">Messages texts</a></li>
                                  <li><a href="/call-logs">Appels</a></li>
-                                 {/* <li><a href="#">Photos</a></li>
-                                 <li><a href="#">Videos</a></li> */}
                                  <li><a href="/keylogger">Saisie clavier</a></li>
                                  <li><a href="/installed-apps">Application</a></li>
-                             </ul>    
+                             </ul>     */}
                          </li>
+
+                         {/* SubMenu alternative for presentation */}
+                         <li>
+                             <a href="/contacts">
+                                 <i class='bx bx-phone-call'></i>
+                                 <span className="link_name ft">Contact</span> 
+                             </a>
+                         </li>
+
+                         <li>
+                             <a href="/sms">
+                                 <i class='bx bx-text' ></i>
+                                 <span className="link_name ft">Messages texts</span> 
+                             </a>
+                         </li>
+
+                         <li>
+                             <a href="/call-logs">
+                                 <i class='bx bx-log-in-circle' ></i>
+                                 <span className="link_name ft">Appels</span> 
+                             </a>
+                         </li>
+
+                         <li>
+                             <a href="/keylogger">
+                                 <i class='bx bx-dialpad-alt' ></i>
+                                 <span className="link_name ft">Saisie clavier</span> 
+                             </a>
+                         </li>
+
+                         <li>
+                             <a href="/installed-apps">
+                                 <i class='bx bxs-comment-detail'></i>
+                                 <span className="link_name ft">Application</span> 
+                             </a>
+                         </li>
+                        {/* End SubMenu alternative for presentation */}
          
                          <li>
                              <a href="/emplacement-gps">
                                  <i className='bx bx-current-location'></i>
                                  <span className="link_name ft">Emplacement GPS</span> 
                              </a>
-                             <ul class="sub-menu blank">
+                             {/* <ul class="sub-menu blank">
                                  <li><a href="/emplacement-gps" class="l-name ft">GPS</a></li>
-                             </ul>
+                             </ul> */}
                          </li>
          
                          <li>
@@ -142,7 +176,7 @@ export default function Sidebar() {
                                  </a>
                                  <i className='bx bx-chevron-down arrow'></i>
                              </div>
-                             <ul className="sub-menu">
+                             {/* <ul className="sub-menu">
                                  <li><a className="l-name" href="#">whatsapp</a></li>
                                  <li><a href="#">whatsapp</a></li>
          
@@ -150,7 +184,7 @@ export default function Sidebar() {
                                      <a href="#">facebook</a>
                                  </li>
                                  <li><a href="#">tiktok</a></li>
-                             </ul>    
+                             </ul>     */}
                          </li>
          
                          <li>
