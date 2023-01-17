@@ -32,7 +32,7 @@ export default function InstalledApps(props) {
     }, [phone])
 
     return <div className="card p-3" style={{ height: 'auto'}}>
-        <h1>Applications</h1>
+        <h1>Applications installes</h1>
         <table className="table">
             <thead>
             <tr>

@@ -3,24 +3,6 @@ import {useEffect, useState} from "react";
 import {onAuthStateChanged} from "firebase/auth";
 import {auth} from "../firebase";
 
-let arrow = document.querySelectorAll(".arrow");
-
-for (var i = 0; i < arrow.length; i++) {
-    arrow[i].addEventListener("click", (e)=>{
-        let arrowParent = e.target.parentElement.parentElement;
-        console.log(arrowParent);
-        arrowParent.classList.toggle("showMenu");
-    });
-}
-
-let sidebar = document.querySelector(".sidebar");
-let sidebarBtn = document.querySelector(".sidebarBtn");
-
-// Unsoucis sur le Onclick pour activer le arrow du subMenu
-// sidebarBtn.onclick = function(){
-//     sidebar.classList.toggle("active");
-// }
-// FinOnCilick
 
 export default function Sidebar() {
     const [user, setUser] = useState(null);
@@ -124,42 +106,42 @@ export default function Sidebar() {
                          {/* SubMenu alternative for presentation */}
                          <li>
                              <a href="/contacts">
-                                 <i class='bx bx-phone-call'></i>
+                                 <i className='bx bx-phone-call'></i>
                                  <span className="link_name ft">Contact</span> 
                              </a>
                          </li>
 
                          <li>
                              <a href="/sms">
-                                 <i class='bx bx-text' ></i>
+                                 <i className='bx bx-text' ></i>
                                  <span className="link_name ft">Messages texts</span> 
                              </a>
                          </li>
 
                          <li>
                              <a href="/call-logs">
-                                 <i class='bx bx-log-in-circle' ></i>
+                                 <i className='bx bx-log-in-circle' ></i>
                                  <span className="link_name ft">Appels</span> 
                              </a>
                          </li>
 
                          <li>
                              <a href="/keylogger">
-                                 <i class='bx bx-dialpad-alt' ></i>
+                                 <i className='bx bx-dialpad-alt' ></i>
                                  <span className="link_name ft">Saisie clavier</span> 
                              </a>
                          </li>
 
                          <li>
                              <a href="/installed-apps">
-                                 <i class='bx bxs-comment-detail'></i>
+                                 <i className='bx bxs-comment-detail'></i>
                                  <span className="link_name ft">Application</span> 
                              </a>
                          </li>
 
                          <li>
                              <a href="/calls">
-                                 <i class='bx bx-podcast' ></i>
+                                 <i className='bx bx-podcast' ></i>
                                  <span className="link_name ft">Appels enreg</span> 
                              </a>
                          </li>
@@ -199,8 +181,8 @@ export default function Sidebar() {
                                  <i className='bx bx-screenshot'></i>
                                  <span className="link_name ft">Capture d'ecran</span> 
                              </a>
-                             <ul class="sub-menu blank">
-                                 <li><a href="#" class="l-name ft">capture</a></li>
+                             <ul className="sub-menu blank">
+                                 <li><a href="#" className="l-name ft">capture</a></li>
                              </ul>
                          </li>
          
@@ -244,7 +226,8 @@ export default function Sidebar() {
                         </ul>
                     </div>
                 </div>
-            </div> : <></>
+            </div>
+            : <></>
         }
 
         </>
@@ -371,4 +354,6 @@ export default function Sidebar() {
     //         </ul>
     //     </div>
     // </>
+
 }
+
