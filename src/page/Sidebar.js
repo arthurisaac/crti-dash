@@ -86,7 +86,7 @@ export default function Sidebar() {
                              </ul>
                          </li>
          
-                         <li>
+                         {/* <li>
                              <div className="icon-link2">
                                  <a href="#">
                                      <i className='bx bx-grid-alt'></i>
@@ -94,14 +94,14 @@ export default function Sidebar() {
                                  </a>
                                  <i className='bx bx-chevron-down arrow'></i>
                              </div>
-                             {/* <ul className="sub-menu">
+                             <ul className="sub-menu">
                                  <li><a href="/contacts">Contact</a></li>
                                  <li><a href="/sms">Messages texts</a></li>
                                  <li><a href="/call-logs">Appels</a></li>
                                  <li><a href="/keylogger">Saisie clavier</a></li>
                                  <li><a href="/installed-apps">Application</a></li>
-                             </ul>     */}
-                         </li>
+                             </ul>    
+                         </li> */}
 
                          {/* SubMenu alternative for presentation */}
                          <li>
@@ -157,7 +157,7 @@ export default function Sidebar() {
                              </ul> */}
                          </li>
          
-                         <li>
+                         {/* <li>
                              <div className="icon-link2">
                                  <a href="#">
                                      <i className='bx bxl-meta'></i>
@@ -165,7 +165,7 @@ export default function Sidebar() {
                                  </a>
                                  <i className='bx bx-chevron-down arrow'></i>
                              </div>
-                             {/* <ul className="sub-menu">
+                             <ul className="sub-menu">
                                  <li><a className="l-name" href="#">whatsapp</a></li>
                                  <li><a href="#">whatsapp</a></li>
          
@@ -173,7 +173,28 @@ export default function Sidebar() {
                                      <a href="#">facebook</a>
                                  </li>
                                  <li><a href="#">tiktok</a></li>
-                             </ul>     */}
+                             </ul>    
+                         </li> */}
+
+                         <li>
+                             <a href="#">
+                                 <i className='bx bxl-whatsapp' ></i>
+                                 <span className="link_name ft">whatsapp</span> 
+                             </a>
+                         </li>
+
+                         <li>
+                             <a href="#">
+                                 <i className='bx bxl-meta'></i>
+                                 <span className="link_name ft">facebook</span> 
+                             </a>
+                         </li>
+
+                         <li>
+                             <a href="#">
+                                 <i className='bx bxl-instagram' ></i>
+                                 <span className="link_name ft">Instagram</span> 
+                             </a>
                          </li>
          
                          <li>
@@ -181,9 +202,9 @@ export default function Sidebar() {
                                  <i className='bx bx-screenshot'></i>
                                  <span className="link_name ft">Capture d'ecran</span> 
                              </a>
-                             <ul className="sub-menu blank">
+                             {/* <ul className="sub-menu blank">
                                  <li><a href="#" className="l-name ft">capture</a></li>
-                             </ul>
+                             </ul> */}
                          </li>
          
                          <li>
