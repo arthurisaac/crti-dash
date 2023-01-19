@@ -1,5 +1,5 @@
 import { ref, get, child } from "firebase/database";
-import {auth, db, storage} from '../firebase';
+import { auth, db, storage } from '../firebase';
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from "firebase/auth";
 import { ref as storageRef, getDownloadURL } from "firebase/storage";
@@ -12,7 +12,7 @@ export default function Calls(props) {
         if (phone) {
             onAuthStateChanged(auth, (user) => {
                 const dbRef = ref(db);
-                get(child(dbRef, `user/${user.uid}/${phone}/calls`)).then((snapshot) => {
+                get(child(dbRef, `user/${user.uid}/${phone}/recording_calls`)).then((snapshot) => {
                     if (snapshot.exists()) {
                         //setCallLogs(snapshot.val());
                         console.log(snapshot.val())
@@ -34,7 +34,7 @@ export default function Calls(props) {
     const getUrl = (data) => {
         const audioRef = storageRef(storage, `${data.file}`);
         getDownloadURL(audioRef).then(url => {
-            setCalls(prevState => [...prevState, {...data, url}])
+            setCalls(prevState => [...prevState, { ...data, url }])
         })
     }
 
@@ -43,24 +43,24 @@ export default function Calls(props) {
 
         <table className="table">
             <thead>
-            <tr>
-                <td>Date</td>
-                <td>Taille</td>
-                <td>Fichier audio</td>
-            </tr>
+                <tr>
+                    <td>Date</td>
+                    <td>Taille</td>
+                    <td>Fichier audio</td>
+                </tr>
             </thead>
             <tbody>
-            {
-                calls.map((call, index) => (
-                    <tr key={index}>
-                        <td>{new Date(+call.date).toUTCString()}</td>
-                        <td>{call.size} o</td>
-                        <td>
-                            <a href={call.url}>Télécharger</a>
-                        </td>
-                    </tr>
-                ))
-            }
+                {
+                    calls.map((call, index) => (
+                        <tr key={index}>
+                            <td>{new Date(+call.date).toUTCString()}</td>
+                            <td>{call.size} o</td>
+                            <td>
+                                <a href={call.url}>Télécharger</a>
+                            </td>
+                        </tr>
+                    ))
+                }
             </tbody>
         </table>
 

@@ -19,7 +19,7 @@ export default function TopBar(props) {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
                     let keys = Object.keys(data);
-                    console.log(keys);
+                    //console.log(keys);
                     keys.map(key => setPhones(prevState => [...prevState, key]))
                     setPhone(keys[0])
                 } else {
@@ -47,19 +47,19 @@ export default function TopBar(props) {
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"/>
+                    data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon" />
                 </button>
                 <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-                    <a className="navbar-brand" href="#"/>
+                    <a className="navbar-brand" href="#" />
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
                             <a className="nav-link active" onClick={handleLogout}>Quitter</a>
                         </li>
                     </ul>
                     <form className="d-flex">
-                        <select className="form-select" aria-label="Default select example" name='phone'  onChange={(e) => setPhone(e.target.value)}>
+                        <select className="form-select" aria-label="Default select example" name='phone' onChange={(e) => setPhone(e.target.value)}>
                             {
                                 phones.map((p, i) => (
                                     <option key={i}>{p}</option>
