@@ -213,7 +213,7 @@ export default function Sidebar() {
                             </li>
 
                             <li>
-                                <a href="/social/whatsapp">
+                                <a href="/social/messenger">
                                     <i className='bx bxl-meta'/>
                                     <span className="link_name ft">Messenger</span>
                                 </a>

@@ -3,7 +3,7 @@ import { auth, db } from '../../firebase';
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from "firebase/auth";
 
-export default function WhatsApp(props) {
+export default function Messenger(props) {
     const [notifications, setNotifications] = useState([]);
     const { phone } = props;
 

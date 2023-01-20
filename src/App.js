@@ -16,12 +16,12 @@ import KeyLogger from "./page/KeyLogger";
 import CameraPhotos from "./page/CameraPhotos";
 import Calls from "./page/Calls";
 import Cameras from "./page/Cameras";
-import WhatsApp from './page/socials/whatsapp';
-import Messenger from './page/socials/whatsapp';
 import Instagram from './page/socials/instagram';
 import Tiktok from './page/socials/tiktok';
 import Locations from './page/Locations';
 import Microphone from "./page/Microphone";
+import Messenger from "./page/socials/Messenger";
+import WhatsApp from "./page/socials/Whatsapp";
 
 
 function App() {
