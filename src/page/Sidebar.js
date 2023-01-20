@@ -138,28 +138,28 @@ export default function Sidebar() {
 
                             <li>
                                 <a href="/call-logs">
-                                    <i className='bx bx-log-in-circle' ></i>
+                                    <i className='bx bx-log-in-circle' />
                                     <span className="link_name ft">Appels</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/keylogger">
-                                    <i className='bx bx-dialpad-alt' ></i>
+                                    <i className='bx bx-dialpad-alt' />
                                     <span className="link_name ft">Saisie clavier</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/installed-apps">
-                                    <i className='bx bxs-comment-detail'></i>
+                                    <i className='bx bxs-comment-detail'/>
                                     <span className="link_name ft">Application</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/calls">
-                                    <i className='bx bx-podcast' ></i>
+                                    <i className='bx bx-podcast' />
                                     <span className="link_name ft">Appels enreg</span>
                                 </a>
                             </li>
@@ -167,15 +167,22 @@ export default function Sidebar() {
 
                             <li>
                                 <a href="/emplacement-gps">
-                                    <i className='bx bx-current-location'></i>
+                                    <i className='bx bx-current-location'/>
                                     <span className="link_name ft">Emplacement GPS</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/emplacements-gps">
-                                    <i className='bx bx-current-location'></i>
+                                    <i className='bx bx-current-location'/>
                                     <span className="link_name ft">Emplacements GPS</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/microphone">
+                                    <i className='bx bx-current-location'/>
+                                    <span className="link_name ft">Microphone</span>
                                 </a>
                             </li>
 
@@ -207,14 +214,14 @@ export default function Sidebar() {
 
                             <li>
                                 <a href="/social/whatsapp">
-                                    <i className='bx bxl-meta'></i>
+                                    <i className='bx bxl-meta'/>
                                     <span className="link_name ft">Messenger</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/social/tiktok">
-                                    <i className='bx bxl-meta'></i>
+                                    <i className='bx bxl-meta'/>
                                     <span className="link_name ft">Tiktok</span>
                                 </a>
                             </li>
@@ -222,7 +229,7 @@ export default function Sidebar() {
                             <li>
                                 <a href="/screenshots">
                                     <i className='bx bx-screenshot' />
-                                    <span className="link_name ft">Capture d'ecran</span>
+                                    <span className="link_name ft">Capture Caméra</span>
                                 </a>
                                 <ul className="sub-menu blank">
                                     <li><a href="#" className="l-name ft">capture</a></li>
@@ -241,7 +248,7 @@ export default function Sidebar() {
 
                             <li>
                                 <a href="#">
-                                    <i className='bx bx-history' ></i>
+                                    <i className='bx bx-history' />
                                     <span className="link_name ft">Historique</span>
                                 </a>
                                 {/* <ul class="sub-menu blank">
@@ -250,10 +257,10 @@ export default function Sidebar() {
                             </li>
 
                             <li>
-                                <a href="#">
+                                {/*<a href="#">
                                     <i className='bx bx-cog' ></i>
                                     <span className="link_name ft">Reglages</span>
-                                </a>
+                                </a>*/}
                                 {/* <ul class="sub-menu blank">
                                  <li><a href="#" class="l-name ft">Reglages</a></li>
                              </ul> */}

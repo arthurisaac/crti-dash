@@ -21,6 +21,7 @@ import Messenger from './page/socials/whatsapp';
 import Instagram from './page/socials/instagram';
 import Tiktok from './page/socials/tiktok';
 import Locations from './page/Locations';
+import Microphone from "./page/Microphone";
 
 
 function App() {
@@ -54,7 +55,7 @@ function App() {
                                 <Route path="instagram" element={<Instagram phone={phone} />} />
                                 <Route path="tiktok" element={<Tiktok phone={phone} />} />
                             </Route>
-
+                            <Route path="/microphone" element={<Microphone phone={phone} />} />
                         </Routes>
                     </div>
                 </div>
