@@ -348,13 +348,12 @@ nav .profile-details i{
 
 .home-content .overview-boxes .box{
     width: calc(100% / 3 - 15px);
-    display: flex;
     align-items: center;
     justify-content: center;
     padding: 15px 14px;
     background: #fff;
     border-radius: 12px;
-    display: block;
+    display: grid;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -367,9 +366,10 @@ nav .profile-details i{
 }
 
 .home-content .overview-boxes .number{
-    font-size: 35px;
+    font-size: 25px;
     font-weight: 500;
-    margin: 15px 0 0 115px;
+    text-align: center;
+    /*margin: 15px 0 0 115px;*/
 }
 
 .overview-boxes .number i{

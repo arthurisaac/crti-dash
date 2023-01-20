@@ -8,7 +8,7 @@ import GoogleMapReact from 'google-map-react';
 import {useEffect, useState} from "react";
 import pin from '../images/map-pin.svg';
 
-const AnyReactComponent = ({text}) => <div>
+export const AnyReactComponent = ({text}) => <div>
     {/*<img src={pin} alt="pin" style={{width: 20}}/>*/}
     <i className='bx bx-mobile' style={{ color: 'red'}}/>
     <div style={{ width: 80}}>{text}</div>

@@ -35,8 +35,8 @@ function App() {
                     <div className="col py-3">
                         <TopBar setPhone={setPhone} />
                         <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/home" element={<Home />} />
+                            <Route path="/" element={<Home phone={phone} />} />
+                            <Route path="/home" element={<Home phone={phone} />} />
                             <Route path="/signup" element={<Signup />} />
                             <Route path="/login" element={<Login />} />
                             <Route path="/contacts" element={<Contacts phone={phone} />} />
