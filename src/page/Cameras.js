@@ -1,13 +1,13 @@
-import { ref, get, child, update } from "firebase/database";
-import { auth, db } from '../firebase';
-import React, { useState, useEffect } from 'react';
-import { onAuthStateChanged } from "firebase/auth";
+import {ref, get, child, update} from "firebase/database";
+import {auth, db} from '../firebase';
+import React, {useState, useEffect} from 'react';
+import {onAuthStateChanged} from "firebase/auth";
 import {Row} from "react-bootstrap";
 
 export default function Cameras(props) {
     const [cameras, setCameras] = useState([]);
-    const [user, setUser] = useState([]);
-    const { phone } = props;
+    const [user, setUser] = useState({});
+    const {phone} = props;
 
     useEffect(() => {
         if (phone) {
@@ -21,6 +21,7 @@ export default function Cameras(props) {
                         Object.values(snapshot.val()).map((photo) => {
                             setCameras(prevState => [...prevState, photo])
                         })
+                        console.log(cameras)
                     } else {
                         console.log("No data available");
                     }
@@ -46,7 +47,7 @@ export default function Cameras(props) {
     }
 
 
-    return <div className="card p-3" style={{ height: 'auto' }}>
+    return <div className="card p-3" style={{height: 'auto'}}>
 
         <div className="row">
             <div className="col-6">
@@ -57,19 +58,23 @@ export default function Cameras(props) {
             </div>
         </div>
 
-        <Row xs={1} md={4} className="g-4">
+        <Row xs={2} md={4} className="g-4">
             {
-                cameras.map((call, i) => (
-                    <div className="card" key={i}>
-                        <img className="card-img-top img-thumbnail" src={call.urlPhoto} alt="Card image cap" style={{ maxHeight: 250, objectFit: 'cover' }} />
-                            <div className="card-body">
-                                <h6 className="card-title">{call.nameRandom}</h6>
-                                <p className="card-text"><small className="text-muted">{call.dateTime}</small>
-                                </p>
+                cameras.map((photo, i) => (
+                    <div className="card" key={i} style={{ height: 'auto' }}>
+                        <img className="card-img-top img-thumbnail" src={photo.urlPhoto} alt="Card image cap"
+                             style={{maxHeight: 250, objectFit: 'cover'}}/>
+                        <div className="card-body">
+                            <h6 className="card-title">{photo.nameRandom}</h6>
+                            <div className="card-text">
+                                <small className="text-muted">{photo.dateTime}</small><br/>
+                                <small>Position : <a href={`https://maps.google.com/maps?z=12&t=m&q=${photo.location?.lat},${photo.location?.lng}`}>Ouvrir sur Maps</a></small>
+                                <p><a href={photo.urlPhoto} target="_blank" download>Téléchager</a></p>
                             </div>
+                        </div>
                     </div>
                 ))
-             }
+            }
         </Row>
         {/*<table className="table">
             <thead>

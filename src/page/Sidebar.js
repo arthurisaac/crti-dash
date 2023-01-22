@@ -187,6 +187,19 @@ export default function Sidebar() {
                             </li>
 
                             <li>
+                                <a href="/photos">
+                                    <i className='bx bx-current-location'/>
+                                    <span className="link_name ft">Photos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/videos">
+                                    <i className='bx bx-current-location'/>
+                                    <span className="link_name ft">Vidéos</span>
+                                </a>
+                            </li>
+
+                            <li>
                                 <div className="icon-link2">
                                     <a href="#">
                                         <i className='bx bxl-meta'></i>
@@ -220,9 +233,9 @@ export default function Sidebar() {
                             </li>
 
                             <li>
-                                <a href="/social/tiktok">
+                                <a href="/social/telegram">
                                     <i className='bx bxl-meta'/>
-                                    <span className="link_name ft">Tiktok</span>
+                                    <span className="link_name ft">Telegram</span>
                                 </a>
                             </li>
 

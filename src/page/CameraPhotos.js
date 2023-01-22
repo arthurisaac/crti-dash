@@ -62,6 +62,7 @@ export default function CameraPhotos(props) {
                 <td>Nom</td>
                 <td>Date</td>
                 <td>Photo</td>
+                <td>Coordonnées</td>
             </tr>
             </thead>
             <tbody>
@@ -73,6 +74,7 @@ export default function CameraPhotos(props) {
                         <td>
                             <img src={shot.urlPhoto} alt="screenshot" style={{ width: 50, height: 'auto'}}/>
                         </td>
+                        <td>{shot.position}</td>
                     </tr>
                 ))
             }

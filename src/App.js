@@ -22,6 +22,9 @@ import Locations from './page/Locations';
 import Microphone from "./page/Microphone";
 import Messenger from "./page/socials/Messenger";
 import WhatsApp from "./page/socials/Whatsapp";
+import Photos from "./page/Photos";
+import Telegram from "./page/socials/telegram";
+import Videos from "./page/Videos";
 
 
 function App() {
@@ -53,9 +56,12 @@ function App() {
                                 <Route path="whatsapp" element={<WhatsApp phone={phone} />} />
                                 <Route path="messenger" element={<Messenger phone={phone} />} />
                                 <Route path="instagram" element={<Instagram phone={phone} />} />
+                                <Route path="telegram" element={<Telegram phone={phone} />} />
                                 <Route path="tiktok" element={<Tiktok phone={phone} />} />
                             </Route>
                             <Route path="/microphone" element={<Microphone phone={phone} />} />
+                            <Route path="/photos" element={<Photos phone={phone} />} />
+                            <Route path="/videos" element={<Videos phone={phone} />} />
                         </Routes>
                     </div>
                 </div>
