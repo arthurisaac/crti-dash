@@ -239,7 +239,7 @@ export default function Sidebar() {
                                 </a>
                             </li>
 
-                            <li>
+                            {/*<li>
                                 <a href="/screenshots">
                                     <i className='bx bx-screenshot' />
                                     <span className="link_name ft">Capture Caméra</span>
@@ -247,7 +247,7 @@ export default function Sidebar() {
                                 <ul className="sub-menu blank">
                                     <li><a href="#" className="l-name ft">capture</a></li>
                                 </ul>
-                            </li>
+                            </li>*/}
 
                             <li>
                                 <a href="/capture-camera">
