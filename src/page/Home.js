@@ -6,6 +6,7 @@ import '../dashboard.css';
 import Geolocation, {AnyReactComponent} from './Geolocation';
 import {child, get, onValue, ref} from "firebase/database";
 import GoogleMapReact from "google-map-react";
+import DataTable from 'react-data-table-component';
 
 const customCourbes = {
     display: "flex",
@@ -67,6 +68,28 @@ export default function Home(props) {
     const [user, setUser] = useState({});
     const [position, setPosition] = useState({lat: 0, long: 0});
     const [positions, setPositions] = useState([]);
+    const columns = [
+        {
+            name: 'Date',
+            selector: row => row.dateTime,
+            sortable: true,
+        },
+        {
+            name: 'Latitude',
+            selector: row => row.latitude,
+            sortable: false,
+        },
+        {
+            name: 'Longitude',
+            selector: row => row.longitude,
+            sortable: false,
+        },
+        {
+            name: 'Adresses',
+            selector: row => row.address,
+            sortable: true,
+        },
+    ];
     const {phone} = props;
 
     useEffect(() => {
@@ -223,7 +246,11 @@ export default function Home(props) {
                 <div className="use-courbes" style={customStyle}>
                     <div className="title" style={customCourbesTitle}>5 dernières positions</div>
                     <div className="details-courbes" style={customCourbesDetails}>
-                        <table className="table">
+                        <DataTable
+                            columns={columns}
+                            data={positions}
+                        />
+                        {/*<table className="table">
                             <thead>
                             <tr>
                                 <td>Date</td>
@@ -249,7 +276,7 @@ export default function Home(props) {
                                 </tr>
                             }
                             </tbody>
-                        </table>
+                        </table>*/}
                     </div>
                     <div className="details-courbes" style={customCourbesDetails}>
                         Les positions sont recueillies par heures

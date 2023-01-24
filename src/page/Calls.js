@@ -3,6 +3,7 @@ import { auth, db, storage } from '../firebase';
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from "firebase/auth";
 import { ref as storageRef, getDownloadURL } from "firebase/storage";
+import DataTable from "react-data-table-component";
 
 export default function Calls(props) {
     const [calls, setCalls] = useState([]);
@@ -31,6 +32,24 @@ export default function Calls(props) {
         }
     }, [phone])
 
+    const columns = [
+        {
+            name: 'Fichier',
+            selector: row => <a href={row.url}>Télécharger</a>,
+            sortable: true,
+        },
+        {
+            name: 'Taille',
+            selector: row => row.size,
+            sortable: true,
+        },
+        {
+            name: 'Date',
+            selector: row => new Date(+row.date).toUTCString(),
+            sortable: true,
+        }
+    ];
+
     const getUrl = (data) => {
         const audioRef = storageRef(storage, `${data.file}`);
         getDownloadURL(audioRef).then(url => {
@@ -41,7 +60,8 @@ export default function Calls(props) {
     return <div className="card p-3" >
         <h1>Enregistrement d'appels</h1>
 
-        <table className="table">
+        <DataTable columns={columns} data={calls} pagination/>
+        {/*<table className="table">
             <thead>
                 <tr>
                     <td>Date</td>
@@ -62,7 +82,7 @@ export default function Calls(props) {
                     ))
                 }
             </tbody>
-        </table>
+        </table>*/}
 
     </div>
 }

@@ -2,10 +2,33 @@ import { ref, get, child } from "firebase/database";
 import { auth, db } from '../firebase';
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from "firebase/auth";
+import DataTable from 'react-data-table-component';
 
 export default function CallLog(props) {
     const [calls, setCallLogs] = useState([]);
     const { phone } = props;
+    const columns = [
+        {
+            name: 'Numéro de téléphone',
+            selector: row => row.number,
+            sortable: true,
+        },
+        {
+            name: 'Durée d\'appel',
+            selector: row => row.duration,
+            sortable: true,
+        },
+        {
+            name: 'Type',
+            selector: row => row.type == 2 ? 'Entrant' : 'Sortant',
+            sortable: true,
+        },
+        {
+            name: 'Date',
+            selector: row => new Date(row.date).toUTCString(),
+            sortable: true,
+        }
+    ];
 
     useEffect(() => {
         if (phone) {
@@ -27,7 +50,8 @@ export default function CallLog(props) {
     return <div className="card p-3" style={{ height: 'auto' }}>
         <h1>Log d'appels</h1>
 
-        <table className="table">
+        <DataTable columns={columns} data={calls} pagination/>
+        {/*<table className="table">
             <thead>
             <tr>
                 <td>Numéro de téléphone</td>
@@ -48,7 +72,7 @@ export default function CallLog(props) {
                 ))
             }
             </tbody>
-        </table>
+        </table>*/}
 
     </div>
 }

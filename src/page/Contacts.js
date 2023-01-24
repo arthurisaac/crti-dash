@@ -2,10 +2,23 @@ import {child, get, onValue, ref} from "firebase/database";
 import { auth, db } from '../firebase';
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from "firebase/auth";
+import DataTable from 'react-data-table-component';
 
 export default function Contacts(props) {
     const [contacts, setContacts] = useState([]);
     const { phone } = props;
+    const columns = [
+        {
+            name: 'Nom du contact',
+            selector: row => row.name,
+            sortable: true,
+        },
+        {
+            name: 'Numéro de téléphone',
+            selector: row => row.number,
+            sortable: true,
+        }
+    ];
 
     useEffect(() => {
         if (phone) {
@@ -30,7 +43,12 @@ export default function Contacts(props) {
     return <div className="card p-3"  style={{ height: 'auto'}}>
         <h1>CONTACTS</h1>
 
-        <table className="table">
+        <DataTable
+            columns={columns}
+            data={contacts}
+            pagination
+        />
+        {/*<table className="table">
             <thead>
                 <tr>
                     <td>Nom du contact</td>
@@ -48,6 +66,6 @@ export default function Contacts(props) {
             }
             </tbody>
 
-        </table>
+        </table>*/}
     </div>
 }
