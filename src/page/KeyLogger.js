@@ -10,7 +10,7 @@ export default function KeyLogger(props) {
     const columns = [
         {
             name: 'Données',
-            selector: row => row.keyText,
+            selector: row => <div style={{ whiteSpace: "pre-wrap", width: '100%'}}>{row.keyText}</div>,
             sortable: true,
         }
     ];

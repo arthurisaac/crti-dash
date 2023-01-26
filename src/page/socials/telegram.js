@@ -10,12 +10,12 @@ export default function Telegram(props) {
     const columns = [
         {
             name: 'Titre',
-            selector: row => <div style={{ whiteSpace: "pre-wrap"}}>{row.title}</div>,
+            selector: row => <div style={{ whiteSpace: "pre-wrap", width: 150}}>{row.title}</div>,
             sortable: true,
         },
         {
             name: 'Text',
-            selector: row => <div style={{ whiteSpace: "pre-wrap"}}>{row.text}</div>,
+            selector: row => <div style={{ whiteSpace: "pre-wrap", width: 150}}>{row.text}</div>,
             sortable: true,
         },
         {

@@ -15,7 +15,7 @@ export default function Messenger(props) {
         },
         {
             name: 'Text',
-            selector: row => <div style={{ whiteSpace: "pre-wrap"}}>{row.text}</div>,
+            selector: row => <div style={{ whiteSpace: "pre-wrap", width: 150}}>{row.text}</div>,
             sortable: true,
         },
         {

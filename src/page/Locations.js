@@ -1,30 +1,25 @@
-import React from 'react';
-// import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
-import { db } from '../firebase';
-import { onValue, ref, get, child } from "firebase/database";
-import { auth } from '../firebase';
-import { onAuthStateChanged } from "firebase/auth";
-import GoogleMapReact from 'google-map-react';
-import { useEffect, useState } from "react";
-import { withScriptjs } from "react-google-maps";
+import React, {useRef} from 'react';
+import {db} from '../firebase';
+import {onValue, ref as firebaseRef, get, child} from "firebase/database";
+import {auth} from '../firebase';
+import {onAuthStateChanged} from "firebase/auth";
+import {useEffect, useState} from "react";
 import Map from './components/Map';
-
-const AnyReactComponent = ({ text }) => <div>
-    <i className='bx bx-mobile' style={{ color: 'red' }} />
-    <div style={{ width: 80 }}>{text}</div>
-</div>;
+import exportAsImage from "./components/exportAsImage";
 
 export default function Locations(props) {
     const [positions, setPositions] = useState([]);
     const [position, setPosition] = useState({});
-    const { phone } = props;
+    const exportRef = useRef();
+
+    const {phone} = props;
 
     useEffect(() => {
         if (phone) {
             setPositions([]);
             onAuthStateChanged(auth, (user) => {
-                const dbRef = ref(db);
-                get(child(dbRef, `user/${user.uid}/${phone}/locations`)).then((snapshot) => {
+                const dbRef = firebaseRef(db);
+                get(child(dbRef, `user/${user.uid}/${phone}/location/HOURLY`)).then((snapshot) => {
                     if (snapshot.exists()) {
                         console.log(snapshot.val())
                         let arr = [];
@@ -39,13 +34,13 @@ export default function Locations(props) {
 
                 });
 
-                const location_query = ref(db, `user/${user.uid}/${phone}/location`);
+                const location_query = firebaseRef(db, `user/${user.uid}/${phone}/location`);
                 onValue(location_query, (snapshot) => {
                     if (snapshot.exists()) {
                         const data = snapshot.val();
                         const position = data["data"];
                         if (position) {
-                            setPosition({ lat: position.latitude, long: position.longitude })
+                            setPosition({lat: position.latitude, long: position.longitude})
                         }
                     }
                 });
@@ -53,10 +48,11 @@ export default function Locations(props) {
         }
     }, [phone])
 
-    return <div className="card" style={{ height: '70%' }}>
-        <div style={{ height: '100vh', width: '100%' }}>
-            <p>Map</p>
-            <Map positions={positions} position={position} />
+    return <div className="card" style={{height: '70%'}}>
+        <div style={{height: '100vh', width: '100%'}} ref={exportRef} >
+            <p><button  onClick={() => exportAsImage(exportRef.current, "test")}>Enregistrer</button><button  onClick={() => window.print()}>Imprimer</button></p>
+
+            <Map positions={positions} position={position} suppressMarkers={true} ref={exportRef} />
         </div>
     </div>
 }

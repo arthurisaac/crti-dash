@@ -65,30 +65,24 @@ export default function Home(props) {
     const [latestSMS, setLatestSMS] = useState([]);
     const [device, setDevice] = useState({});
     const [totalNotification, setTotalNotification] = useState(0);
-    const [user, setUser] = useState({});
     const [position, setPosition] = useState({lat: 0, long: 0});
     const [positions, setPositions] = useState([]);
     const columns = [
         {
             name: 'Date',
-            selector: row => row.dateTime,
+            selector: row => <div style={{width: 100}}>{row.dateTime}</div>,
             sortable: true,
         },
         {
-            name: 'Latitude',
-            selector: row => row.latitude,
-            sortable: false,
-        },
-        {
-            name: 'Longitude',
-            selector: row => row.longitude,
+            name: 'Coordonées',
+            selector: row => <div>{row.latitude}, {row.longitude}</div>,
             sortable: false,
         },
         {
             name: 'Adresses',
             selector: row => row.address,
             sortable: true,
-        },
+        }
     ];
     const {phone} = props;
 
@@ -126,12 +120,12 @@ export default function Home(props) {
                         if (snapshot.exists()) {
                             console.log(snapshot.val())
                             let arr = [];
-                            let i = 0;
+                            //let i = 0;
                             Object.values(snapshot.val()).map((pos) => {
-                                if (i < 5) {
-                                    arr.push(pos)
-                                }
-                                i++;
+                                //if (i < 5) {
+                                arr.push(pos)
+                                //}
+                                //i++;
                             })
                             setPositions(arr)
                         } else {
@@ -171,12 +165,16 @@ export default function Home(props) {
             onAuthStateChanged(auth, (user) => {
                 if (user) {
                     const dbRef = ref(db);
-                    get(child(dbRef, `user/${user.uid}/${phone}/notificationsMessages`)).then((snapshot) => {
+                    get(child(dbRef, `user/${user.uid}/${phone}/notificationsMessages/data`)).then((snapshot) => {
                         if (snapshot.exists()) {
                             //setCallLogs(snapshot.val());
-                            if (snapshot.val().length > 0) {
-                                setTotalNotification(snapshot.val().length)
-                            }
+
+                            let i = 0;
+                            Object.values(snapshot.val()).map(() => {
+                                i++
+                            });
+                            setTotalNotification(i)
+
                         } else {
                             console.log("No data available");
                         }
@@ -216,7 +214,7 @@ export default function Home(props) {
         <div className="home-content">
             <div className="overview-boxes">
                 <div className="box">
-                    <div className="box_topic">Dernier appel reçu</div>
+                    <div className="box_topic">Dernier appel emit</div>
                     <div className="number">
                         <i className='bx bx-mobile'/>
                         {latestCall}
@@ -244,39 +242,17 @@ export default function Home(props) {
 
             <div className="courbes-boxes" style={customCourbes}>
                 <div className="use-courbes" style={customStyle}>
-                    <div className="title" style={customCourbesTitle}>5 dernières positions</div>
+                    <div className="title" style={customCourbesTitle}>10 dernières positions</div>
                     <div className="details-courbes" style={customCourbesDetails}>
-                        <DataTable
-                            columns={columns}
-                            data={positions}
-                        />
-                        {/*<table className="table">
-                            <thead>
-                            <tr>
-                                <td>Date</td>
-                                <td>Coordonnées</td>
-                                <td>Adresses</td>
-                                <td/>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                positions ? positions.map((map, i) => (
-                                    <tr key={i}>
-                                        <td>{map.dateTime}</td>
-                                        <td>{map.latitude}, {map.longitude}</td>
-                                        <td>{map.address}</td>
-                                        <td>
-                                            <a href={`https://maps.google.com/maps?z=12&t=m&q=${map.latitude},${map.longitude}`}>Ouvrir
-                                                sur Maps</a>
-                                        </td>
-                                    </tr>
-                                )) : <tr>
-                                    <td colSpan={4}>Aucune position recueillie</td>
-                                </tr>
-                            }
-                            </tbody>
-                        </table>*/}
+                        <div>
+
+                            <DataTable
+                                columns={columns}
+                                data={positions}
+                                pagination
+                                dense
+                            />
+                        </div>
                     </div>
                     <div className="details-courbes" style={customCourbesDetails}>
                         Les positions sont recueillies par heures
