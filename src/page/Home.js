@@ -3,7 +3,7 @@ import {redirect, useNavigate} from 'react-router-dom';
 import {onAuthStateChanged} from "firebase/auth";
 import {auth, db} from '../firebase';
 import '../dashboard.css';
-import Geolocation, {AnyReactComponent} from './Geolocation';
+import {AnyReactComponent} from './Geolocation';
 import {child, get, onValue, ref} from "firebase/database";
 import GoogleMapReact from "google-map-react";
 import DataTable from 'react-data-table-component';
@@ -214,7 +214,7 @@ export default function Home(props) {
         <div className="home-content">
             <div className="overview-boxes">
                 <div className="box">
-                    <div className="box_topic">Dernier appel emit</div>
+                    <div className="box_topic">Dernier appel émis</div>
                     <div className="number">
                         <i className='bx bx-mobile'/>
                         {latestCall}
