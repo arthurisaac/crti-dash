@@ -6,8 +6,9 @@ import {Row} from "react-bootstrap";
 
 export default function Photos(props) {
     const [photos, setPhotos] = useState([]);
-    const [photoCount, setPhotoCount] = useState(2);
+    const [photoCount, setPhotoCount] = useState(10);
     const [user, setUser] = useState({});
+    const [loading, setLoading] = useState(false);
     const {phone} = props;
 
     useEffect(() => {
@@ -18,11 +19,9 @@ export default function Photos(props) {
                 const dbRef = ref(db);
                 get(child(dbRef, `user/${user.uid}/${phone}/photos/data`)).then((snapshot) => {
                     if (snapshot.exists()) {
-                        //console.log(snapshot.val());
                         Object.values(snapshot.val()).map((photo) => {
                             setPhotos(prevState => [...prevState, photo])
                         })
-                        console.log(photos)
                     } else {
                         console.log("No data available");
                     }
@@ -35,19 +34,27 @@ export default function Photos(props) {
 
     const getPhotos = () => {
         const updates = {};
+        setLoading(true);
         updates[`user/${user.uid}/${phone}/photos/params/getPhotos`] = true;
         updates[`user/${user.uid}/${phone}/photos/params/count`] = photoCount;
-        update(ref(db), updates).then(() => alert('Commande envoyée'));
+        update(ref(db), updates).then(() => setTimeout(() => {
+            alert("Commande envoyée!")
+            setLoading(false);
+        }, 5000));
     }
 
 
     return <div className="card p-3" style={{height: 'auto'}}>
 
-        <div className="row">
-            <div className="col-6">
-                <button className="btn btn-sm" onClick={getPhotos}>Recupérer des photos</button>
+        {
+            Object.keys(user).length > 0 &&
+            <div className="row">
+                <div className="col-6">
+                    { loading ? <p>Chargement en cours</p> : <button className="btn btn-sm" onClick={getPhotos}>Recupérer des photos</button> }
+                </div>
             </div>
-        </div>
+        }
+
 
         <Row xs={2} md={4} className="g-4">
             {

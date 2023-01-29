@@ -1,4 +1,4 @@
-import {child, get, onValue, ref} from "firebase/database";
+import {child, get, onValue, ref as firebaseRef, ref} from "firebase/database";
 import {auth, db} from '../firebase';
 import React, {useState, useEffect} from 'react';
 import {onAuthStateChanged} from "firebase/auth";
@@ -6,6 +6,7 @@ import DataTable from 'react-data-table-component';
 
 export default function MessageText(props) {
     const [messages, setMessages] = useState([]);
+    const [sms, setSMS] = useState([]);
     const {phone} = props;
     const columns = [
         {
@@ -29,6 +30,28 @@ export default function MessageText(props) {
             sortable: true,
         }
     ];
+    const columnsSMS = [
+        {
+            name: 'Numéro de téléphone',
+            selector: row => row.smsAddress,
+            sortable: true,
+        },
+        {
+            name: 'Message',
+            selector: row => <div style={{ whiteSpace: "pre-wrap"}}>{row.smsBody}</div>,
+            sortable: true,
+        },
+        {
+            name: 'Type',
+            selector: row => <span>{row.type === 2 ? 'Entrant' : 'Sortant'}</span>,
+            sortable: true,
+        },
+        {
+            name: 'Date',
+            selector: row => row.dateTime,
+            sortable: true,
+        }
+    ];
 
     useEffect(() => {
         if (phone) {
@@ -39,19 +62,32 @@ export default function MessageText(props) {
                         const data = snapshot.val();
                         console.log(data)
                         setMessages(data);
-                    } else {
-                        console.log("No data available");
-                        alert("Aucun message")
                     }
-                }).catch((error) => {
-                    console.error(error);
+                })
+
+                const sms_query = firebaseRef(db, `user/${user.uid}/${phone}/sms/data`);
+                onValue(sms_query, (snapshot) => {
+                    if (snapshot.exists()) {
+                        let arr = [];
+                        Object.values(snapshot.val()).map((item) => {
+                            arr.push(item)
+                        })
+                        setSMS(arr);
+                    }
                 });
             });
         }
     }, [phone])
 
     return <div className="card p-3" style={{height: 'auto'}}>
-        <h1>Messages</h1>
+        <h1>SMS</h1>
+
+        <DataTable columns={columnsSMS} data={sms} pagination/>
+
+        <br/>
+        <hr/>
+        <br/>
+        <h1>Anciens messages</h1>
 
         <DataTable columns={columns} data={messages} pagination/>
         {/*<table className="table">

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {redirect, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {onAuthStateChanged} from "firebase/auth";
 import {auth, db} from '../firebase';
 import '../dashboard.css';
@@ -70,18 +70,21 @@ export default function Home(props) {
     const columns = [
         {
             name: 'Date',
-            selector: row => <div style={{width: 100}}>{row.dateTime}</div>,
+            selector: row => <div>{row.dateTime}</div>,
             sortable: true,
+            width: '180px'
         },
         {
             name: 'Coordonées',
             selector: row => <div>{row.latitude}, {row.longitude}</div>,
             sortable: false,
+            width: '200px'
         },
         {
             name: 'Adresses',
-            selector: row => row.address,
+            selector: row => <div style={{ whiteSpace: 'pre-wrap' }}>{row.address}</div>,
             sortable: true,
+            width: '400px'
         }
     ];
     const {phone} = props;
@@ -102,6 +105,12 @@ export default function Home(props) {
         if (phone) {
             onAuthStateChanged(auth, (user) => {
                 if (user) {
+                    setPositions([]);
+                    setLatestSMS([]);
+                    setLatestCall([]);
+                    setTotalNotification(0);
+                    setPosition({ lat: 0, long: 0});
+
                     const dbRef = ref(db);
                     get(child(dbRef, `user/${user.uid}/${phone}/call_logs`)).then((snapshot) => {
                         if (snapshot.exists()) {
@@ -112,20 +121,14 @@ export default function Home(props) {
                         } else {
                             console.log("No data available");
                         }
-                    }).catch((error) => {
-                        console.error(error);
                     });
 
                     get(child(dbRef, `user/${user.uid}/${phone}/location/HOURLY`)).then((snapshot) => {
                         if (snapshot.exists()) {
-                            console.log(snapshot.val())
                             let arr = [];
-                            //let i = 0;
+
                             Object.values(snapshot.val()).map((pos) => {
-                                //if (i < 5) {
                                 arr.push(pos)
-                                //}
-                                //i++;
                             })
                             setPositions(arr)
                         } else {
@@ -133,16 +136,7 @@ export default function Home(props) {
                         }
 
                     });
-                }
-            });
-        }
-    }, [phone])
 
-    useEffect(() => {
-        if (phone) {
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    const dbRef = ref(db);
                     get(child(dbRef, `user/${user.uid}/${phone}/smses`)).then((snapshot) => {
                         if (snapshot.exists()) {
                             //setCallLogs(snapshot.val());
@@ -152,19 +146,8 @@ export default function Home(props) {
                         } else {
                             console.log("No data available");
                         }
-                    }).catch((error) => {
-                        console.error(error);
                     });
-                }
-            });
-        }
-    }, [phone])
 
-    useEffect(() => {
-        if (phone) {
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    const dbRef = ref(db);
                     get(child(dbRef, `user/${user.uid}/${phone}/notificationsMessages/data`)).then((snapshot) => {
                         if (snapshot.exists()) {
                             //setCallLogs(snapshot.val());
@@ -178,8 +161,6 @@ export default function Home(props) {
                         } else {
                             console.log("No data available");
                         }
-                    }).catch((error) => {
-                        console.error(error);
                     });
                 }
             });

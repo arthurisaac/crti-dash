@@ -24,7 +24,6 @@ export default function Locations(props) {
                         console.log(snapshot.val())
                         let arr = [];
                         Object.values(snapshot.val()).map((pos) => {
-                            //setPositions(prev => [...prev, pos]);
                             arr.push(pos)
                         })
                         setPositions(arr)

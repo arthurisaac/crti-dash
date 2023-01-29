@@ -7,6 +7,8 @@ import { ref as storageRef, getDownloadURL } from "firebase/storage";
 export default function Microphone(props) {
     const [audio, setAudios] = useState([]);
     const [user, setUser] = useState({});
+    const [time, setTime] = useState(10000);
+    const [loading, setLoading] = useState(false);
     const { phone } = props;
 
     useEffect(() => {
@@ -14,19 +16,6 @@ export default function Microphone(props) {
             setAudios([]);
             onAuthStateChanged(auth, (user) => {
                 setUser(user);
-                const dbRef = ref(db);
-                /*get(child(dbRef, `user/${user.uid}/${phone}/recording/data`)).then((snapshot) => {
-                    if (snapshot.exists()) {
-                        //console.log(snapshot.val());
-                        Object.values(snapshot.val()).map((item) => {
-                            getUrl(item)
-                        })
-                    } else {
-                        console.log("No audio available");
-                    }
-                }).catch((error) => {
-                    console.error(error);
-                });*/
                 const query = ref(db, `user/${user.uid}/${phone}/recording/data`);
                 onValue(query, (snapshot) => {
                     setAudios([]);
@@ -39,10 +28,14 @@ export default function Microphone(props) {
     }, [phone])
 
     const recordAudio = () => {
+        setLoading(true);
         const updates = {};
         updates[`user/${user.uid}/${phone}/recording/params/recordAudio`] = true;
-        updates[`user/${user.uid}/${phone}/recording/params/timeAudio`] = 10000;
-        update(ref(db), updates).then(() => console.log('Command sent'));
+        updates[`user/${user.uid}/${phone}/recording/params/timeAudio`] = time;
+        update(ref(db), updates).then(() => setTimeout(() => {
+            alert("Commande envoyée!")
+            setLoading(false);
+        }, 5000));
     }
 
     const getUrl = (data) => {
@@ -57,9 +50,20 @@ export default function Microphone(props) {
 
         <div className="row">
             <div className="col-6">
-                <button className="btn btn-sm" onClick={recordAudio}>Enregistrer un audio</button>
+                <input type="range" step="10" name="name" min="10" max="1000" onChange={(e) => {
+                    console.log(e.target.value * 1000)
+                    setTime(e.target.value * 1000)
+                }} />
             </div>
         </div>
+
+        { Object.keys(user).length > 0 && (
+            <div className="row">
+                <div className="col-6">
+                    { loading ? <p>Chargement en cours</p> : <button className="btn btn-sm" onClick={recordAudio}>Enregistrer un audio</button>}
+                </div>
+            </div>
+        )}
 
         <table className="table">
             <thead>

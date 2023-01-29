@@ -67,6 +67,7 @@ const MapWithADirectionsRenderer = compose(
             const DirectionsService = new google.maps.DirectionsService();
             const { lat, long } = nextProps.position;
             const locations = []
+             console.log(locations);
             if (nextProps.positions) {
                 nextProps.positions.map((p, i) => {
                     if (i < 25) {
@@ -123,7 +124,7 @@ class Map extends React.Component {
         super(props);
 
         this.state = {
-            position: { lat: props.position.latitude, long: props.position.longitude },
+            position: { lat: 0, long: 0 },
             positions: [],
             suppressMarkers: props.suppressMarkers
         };
@@ -139,7 +140,6 @@ class Map extends React.Component {
     }
 
     render() {
-        const { position } = this.props;
         return (
             <>
                 {(this.props.position.lat && this.props.position.long) ? <MapWithADirectionsRenderer positions={this.state.positions} position={this.state.position} suppressMarkers={this.props.suppressMarkers} /> : <div>...</div>}

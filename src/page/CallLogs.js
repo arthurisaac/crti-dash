@@ -1,4 +1,4 @@
-import { ref, get, child } from "firebase/database";
+import {ref, get, child} from "firebase/database";
 import { auth, db } from '../firebase';
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from "firebase/auth";
@@ -20,7 +20,7 @@ export default function CallLog(props) {
         },
         {
             name: 'Type',
-            selector: row => row.type == 2 ? 'Entrant' : 'Sortant',
+            selector: row => row.type === 2 ? 'Entrant' : 'Sortant',
             sortable: true,
         },
         {
@@ -40,8 +40,6 @@ export default function CallLog(props) {
                     } else {
                         console.log("No data available");
                     }
-                }).catch((error) => {
-                    console.error(error);
                 });
             });
         }

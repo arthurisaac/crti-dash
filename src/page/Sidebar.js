@@ -5,7 +5,7 @@ import {auth} from "../firebase";
 
 let arrow = document.querySelectorAll(".arrow");
 
-for (var i = 0; i < arrow.length; i++) {
+for (let i = 0; i < arrow.length; i++) {
     arrow[i].addEventListener("click", (e) => {
         let arrowParent = e.target.parentElement.parentElement;
         console.log(arrowParent);
@@ -36,118 +36,118 @@ export default function Sidebar() {
     return user ? <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
         <div
             className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100 sidebar">
-            <a href="/"
+            <NavLink to="/"
                className="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none logo-details">
-                <i className='bx bx-globe'></i>
+                <i className='bx bx-globe'/>
                 <span className="fs-5 d-none d-sm-inline logo">CRTI</span>
-            </a>
+            </NavLink>
 
             {
                 <ul className="nav-links">
                     <li>
-                        <a href="/">
-                            <i className='bx bxs-home'></i>
+                        <NavLink to="/">
+                            <i className='bx bxs-home'/>
                             <span className="link_name ft">Tableau de bord</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     {/* SubMenu alternative for presentation */}
                     <li>
-                        <a href="/contacts">
-                            <i className='bx bx-phone-call'></i>
+                        <NavLink to="/contacts">
+                            <i className='bx bx-phone-call'/>
                             <span className="link_name ft">Contact</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     <li>
-                        <a href="/sms">
-                            <i className='bx bx-text'></i>
+                        <NavLink to="/sms">
+                            <i className='bx bx-text'/>
                             <span className="link_name ft">Messages texts</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     <li>
-                        <a href="/call-logs">
+                        <NavLink to="/call-logs">
                             <i className='bx bx-log-in-circle'/>
                             <span className="link_name ft">Appels</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     <li>
-                        <a href="/keylogger">
+                        <NavLink to="/keylogger">
                             <i className='bx bx-dialpad-alt'/>
                             <span className="link_name ft">Saisie clavier</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     <li>
-                        <a href="/installed-apps">
+                        <NavLink to="/installed-apps">
                             <i className='bx bxs-comment-detail'/>
                             <span className="link_name ft">Application</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     <li>
-                        <a href="/calls">
+                        <NavLink to="/calls">
                             <i className='bx bx-podcast'/>
                             <span className="link_name ft">Appels enreg</span>
-                        </a>
+                        </NavLink>
                     </li>
                     {/* End SubMenu alternative for presentation */}
 
                     <li>
-                        <a href="/emplacement-gps">
-                            <i class='bx bx-location-plus'></i>
+                        <NavLink to="/emplacement-gps">
+                            <i className='bx bx-location-plus'/>
                             <span className="link_name ft">Position actuelle</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     <li>
-                        <a href="/emplacements-gps">
+                        <NavLink to="/emplacements-gps">
                             <i className='bx bx-current-location'/>
                             <span className="link_name ft">Emplacements GPS</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     <li>
-                        <a href="/microphone">
-                            <i class='bx bx-microphone'></i>
+                        <NavLink to="/microphone">
+                            <i className='bx bx-microphone'/>
                             <span className="link_name ft">Microphone</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     <li>
-                        <a href="/photos">
-                            <i class='bx bx-photo-album'></i>
+                        <NavLink to="/photos">
+                            <i className='bx bx-photo-album'/>
                             <span className="link_name ft">Photos</span>
-                        </a>
+                        </NavLink>
                     </li>
                     <li>
-                        <a href="/videos">
-                            <i class='bx bx-video'></i>
+                        <NavLink to="/videos">
+                            <i className='bx bx-video'/>
                             <span className="link_name ft">Vidéos</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     <li>
-                        <a href="/social/whatsapp">
-                            <i class='bx bxl-whatsapp'></i>
+                        <NavLink to="/social/whatsapp">
+                            <i className='bx bxl-whatsapp'/>
                             <span className="link_name ft">WhatsApp</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     <li>
-                        <a href="/social/messenger">
+                        <NavLink to="/social/messenger">
                             <i className='bx bxl-meta'/>
                             <span className="link_name ft">Messenger</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     <li>
-                        <a href="/social/telegram">
-                            <i class='bx bxl-telegram'></i>
+                        <NavLink to="/social/telegram">
+                            <i className='bx bxl-telegram'/>
                             <span className="link_name ft">Telegram</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     {/* <li>
@@ -161,23 +161,23 @@ export default function Sidebar() {
                             </li> */}
 
                     <li>
-                        <a href="/capture-camera">
+                        <NavLink to="/capture-camera">
                             <i className='bx bx-screenshot'/>
                             <span className="link_name ft">Capture camera</span>
-                        </a>
+                        </NavLink>
                     </li>
                 </ul>
 
             }
             <hr/>
             <div className="dropdown pb-4">
-                <a href="#"
+                <NavLink to="/"
                    className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                    id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30"
                          className="rounded-circle"/>
                     <span className="d-none d-sm-inline mx-1">{user?.email}</span>
-                </a>
+                </NavLink>
                 <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li><a className="dropdown-item" href="#">Settings</a>
                         > Odilon:
