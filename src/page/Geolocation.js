@@ -1,12 +1,10 @@
 import React from 'react';
 // import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import {db} from '../firebase';
-import {child, get, onValue, ref as firebaseRef, ref} from "firebase/database";
+import {child, get, ref as firebaseRef} from "firebase/database";
 import {auth} from '../firebase';
 import {onAuthStateChanged} from "firebase/auth";
 import {useEffect, useState} from "react";
-import Map from "./components/Map";
-import GoogleMapReact from "google-map-react";
 
 import {MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup} from 'react-leaflet';
 

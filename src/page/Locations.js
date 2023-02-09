@@ -6,6 +6,7 @@ import {onAuthStateChanged} from "firebase/auth";
 import {useEffect, useState} from "react";
 import exportAsImage from "./components/exportAsImage";
 import {MapContainer, Marker, Popup, TileLayer, LayersControl, LayerGroup} from "react-leaflet";
+import RoutingMachine from "../RoutingMachine";
 
 export default function Locations(props) {
     const [positions, setPositions] = useState([]);
@@ -68,7 +69,20 @@ export default function Locations(props) {
                                 </Popup>
                             </Marker>
                         </LayersControl.Overlay>*/}
-                        <LayersControl.Overlay checked name="Street map">
+                        <LayersControl.Overlay checked name="Street route map">
+                            <LayerGroup>
+                                <TileLayer
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                />
+                                {
+                                    positions.length > 0 ? <>
+                                        <RoutingMachine positions={positions} />
+                                    </> : <></>
+                                }
+                            </LayerGroup>
+                        </LayersControl.Overlay>
+                        <LayersControl.Overlay name="Street map">
                             <LayerGroup>
                                 <TileLayer
                                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -100,8 +114,8 @@ export default function Locations(props) {
                                 {
                                     positions.length > 0 ? <>
                                         {
-                                            positions.map((pos) => (
-                                                <Marker position={[pos.latitude, pos.longitude]}>
+                                            positions.map((pos, index) => (
+                                                <Marker position={[pos.latitude, pos.longitude]} key={index}>
                                                     <Popup>
                                                         {pos.latitude}. {pos.longitude} <br/>
                                                     </Popup>
@@ -123,8 +137,8 @@ export default function Locations(props) {
                                 {
                                     positions.length > 0 ? <>
                                         {
-                                            positions.map((pos) => (
-                                                <Marker position={[pos.latitude, pos.longitude]}>
+                                            positions.map((pos, index) => (
+                                                <Marker position={[pos.latitude, pos.longitude]} key={index}>
                                                     <Popup>
                                                         {pos.latitude}. {pos.longitude} <br/>
                                                     </Popup>
