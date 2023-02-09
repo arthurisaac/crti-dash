@@ -7,6 +7,7 @@ import {AnyReactComponent} from './Geolocation';
 import {child, get, onValue, ref} from "firebase/database";
 import GoogleMapReact from "google-map-react";
 import DataTable from 'react-data-table-component';
+import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
 
 const customCourbes = {
     display: "flex",
@@ -258,7 +259,7 @@ export default function Home(props) {
                 <div className="map-details">
                     <div className="card" style={{height: '70%'}}>
                         <div style={{height: '300px', width: '100%'}}>
-                            {position ? <GoogleMapReact
+                            {/*{position ? <GoogleMapReact
                                 bootstrapURLKeys={{key: "AIzaSyCMPfgRI9IUDK66_a_BYOVunqfxfqEoy00"}}
                                 defaultCenter={{
                                     lat: 0,
@@ -278,6 +279,19 @@ export default function Home(props) {
 
                                 />
                             </GoogleMapReact> : <div>Position non récupéré</div>
+                            }*/}
+                            {(position.lat && position.long) ?
+                                <MapContainer center={[position.lat, position.long]} zoom={12} scrollWheelZoom={false}>
+                                    <TileLayer
+                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                    />
+                                    <Marker position={[position.lat, position.long]}>
+                                        <Popup>
+                                            {position.lat}. {position.long} <br />
+                                        </Popup>
+                                    </Marker>
+                                </MapContainer> : <div>Position non récupéré</div>
                             }
                         </div>
                     </div>

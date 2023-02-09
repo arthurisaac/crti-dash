@@ -6,6 +6,7 @@ import {onAuthStateChanged} from "firebase/auth";
 import {useEffect, useState} from "react";
 import Map from './components/Map';
 import exportAsImage from "./components/exportAsImage";
+import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
 
 export default function Locations(props) {
     const [positions, setPositions] = useState([]);
@@ -21,12 +22,13 @@ export default function Locations(props) {
                 const dbRef = firebaseRef(db);
                 get(child(dbRef, `user/${user.uid}/${phone}/location/HOURLY`)).then((snapshot) => {
                     if (snapshot.exists()) {
-                        console.log(snapshot.val())
+                        //console.log(snapshot.val())
                         let arr = [];
                         Object.values(snapshot.val()).map((pos) => {
                             arr.push(pos)
                         })
                         setPositions(arr)
+                        console.log(arr)
                     } else {
                         console.log('no positions')
                     }
@@ -56,7 +58,34 @@ export default function Locations(props) {
                 <button onClick={() => window.print()}>Imprimer</button>
             </p>
 
-            <Map positions={positions} position={position} suppressMarkers={true} ref={exportRef}/>
+            {/*<Map positions={positions} position={position} suppressMarkers={true} ref={exportRef}/>*/}
+            {(position.lat && position.long) ?
+                <MapContainer center={[position.lat, position.long]} zoom={12} scrollWheelZoom={false}>
+                    <TileLayer
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    />
+                    <Marker position={[position.lat, position.long]}>
+                        <Popup>
+                            {position.lat}. {position.long} <br />
+                        </Popup>
+                    </Marker>
+                    {
+                        positions.length > 0 ? <>
+                        {
+                            positions.map((pos) => (
+                                <Marker position={[pos.latitude, pos.longitude]}>
+                                    <Popup>
+                                        {pos.latitude}. {pos.longitude} <br />
+                                    </Popup>
+                                </Marker>
+                            ))
+                        }
+
+                        </> : <></>
+                    }
+                </MapContainer> : <div>Patientez pendant la récupération des positions</div>
+            }
         </div>
     </div>
 }
