@@ -85,7 +85,7 @@ export default function Home(props) {
             name: 'Adresses',
             selector: row => <div style={{ whiteSpace: 'pre-wrap' }}>{row.address}</div>,
             sortable: true,
-            width: '400px'
+            width: '50%'
         }
     ];
     const {phone} = props;

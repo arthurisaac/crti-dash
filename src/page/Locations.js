@@ -4,9 +4,8 @@ import {onValue, ref as firebaseRef, get, child} from "firebase/database";
 import {auth} from '../firebase';
 import {onAuthStateChanged} from "firebase/auth";
 import {useEffect, useState} from "react";
-import Map from './components/Map';
 import exportAsImage from "./components/exportAsImage";
-import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
+import {MapContainer, Marker, Popup, TileLayer, LayersControl, LayerGroup} from "react-leaflet";
 
 export default function Locations(props) {
     const [positions, setPositions] = useState([]);
@@ -61,29 +60,83 @@ export default function Locations(props) {
             {/*<Map positions={positions} position={position} suppressMarkers={true} ref={exportRef}/>*/}
             {(position.lat && position.long) ?
                 <MapContainer center={[position.lat, position.long]} zoom={12} scrollWheelZoom={false}>
-                    <TileLayer
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    />
-                    <Marker position={[position.lat, position.long]}>
-                        <Popup>
-                            {position.lat}. {position.long} <br />
-                        </Popup>
-                    </Marker>
-                    {
-                        positions.length > 0 ? <>
-                        {
-                            positions.map((pos) => (
-                                <Marker position={[pos.latitude, pos.longitude]}>
-                                    <Popup>
-                                        {pos.latitude}. {pos.longitude} <br />
-                                    </Popup>
-                                </Marker>
-                            ))
-                        }
+                    <LayersControl position="topright">
+                        {/*<LayersControl.Overlay name="Position actuelle">
+                            <Marker position={[position.lat, position.long]}>
+                                <Popup>
+                                    {position.lat}. {position.long} <br />
+                                </Popup>
+                            </Marker>
+                        </LayersControl.Overlay>*/}
+                        <LayersControl.Overlay checked name="Street map">
+                            <LayerGroup>
+                                <TileLayer
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                />
+                                {
+                                    positions.length > 0 ? <>
+                                        {
+                                            positions.map((pos, index) => (
+                                                <Marker position={[pos.latitude, pos.longitude]} key={index}>
+                                                    <Popup>
+                                                        {pos.latitude}. {pos.longitude} <br/>
+                                                    </Popup>
+                                                </Marker>
+                                            ))
+                                        }
 
-                        </> : <></>
-                    }
+                                    </> : <></>
+                                }
+                            </LayerGroup>
+                        </LayersControl.Overlay>
+                        <LayersControl.Overlay name="Google Map">
+                            <LayerGroup>
+                                <TileLayer
+                                    url='https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}'
+                                    maxZoom={20}
+                                    subdomains={['mt1', 'mt2', 'mt3']}
+                                />
+                                {
+                                    positions.length > 0 ? <>
+                                        {
+                                            positions.map((pos) => (
+                                                <Marker position={[pos.latitude, pos.longitude]}>
+                                                    <Popup>
+                                                        {pos.latitude}. {pos.longitude} <br/>
+                                                    </Popup>
+                                                </Marker>
+                                            ))
+                                        }
+
+                                    </> : <></>
+                                }
+                            </LayerGroup>
+                        </LayersControl.Overlay>
+                        <LayersControl.Overlay name="Satellite">
+                            <LayerGroup>
+                                <TileLayer
+                                    url='https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
+                                    maxZoom={20}
+                                    subdomains={['mt1', 'mt2', 'mt3']}
+                                />
+                                {
+                                    positions.length > 0 ? <>
+                                        {
+                                            positions.map((pos) => (
+                                                <Marker position={[pos.latitude, pos.longitude]}>
+                                                    <Popup>
+                                                        {pos.latitude}. {pos.longitude} <br/>
+                                                    </Popup>
+                                                </Marker>
+                                            ))
+                                        }
+
+                                    </> : <></>
+                                }
+                            </LayerGroup>
+                        </LayersControl.Overlay>
+                    </LayersControl>
                 </MapContainer> : <div>Patientez pendant la récupération des positions</div>
             }
         </div>

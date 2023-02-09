@@ -8,7 +8,7 @@ import {useEffect, useState} from "react";
 import Map from "./components/Map";
 import GoogleMapReact from "google-map-react";
 
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import {MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup} from 'react-leaflet';
 
 export const AnyReactComponent = ({text, lat, lng}) => <div>
     {/*<img src={pin} alt="pin" style={{width: 20}}/>*/}
@@ -67,17 +67,37 @@ export default function Geolocation(props) {
             }*/}
             {(position.lat && position.long) ?
                 <MapContainer center={[position.lat, position.long]} zoom={12} scrollWheelZoom={false}>
-                    <TileLayer
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    />
-                    <Marker position={[position.lat, position.long]}>
-                        <Popup>
-                            {position.lat}. {position.long} <br />
-                        </Popup>
-                    </Marker>
+                    <LayersControl position="topright">
+                        <LayersControl.Overlay checked name="Street map">
+                            <LayerGroup>
+                                <TileLayer
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                />
+                                <Marker position={[position.lat, position.long]}>
+                                    <Popup>
+                                        {position.lat}. {position.long} <br/>
+                                    </Popup>
+                                </Marker>
+                            </LayerGroup>
+                        </LayersControl.Overlay>
+                        <LayersControl.Overlay name="Satelitte map">
+                            <LayerGroup>
+                                <TileLayer
+                                    url='https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
+                                    maxZoom={20}
+                                    subdomains={['mt1', 'mt2', 'mt3']}
+                                />
+                                <Marker position={[position.lat, position.long]}>
+                                    <Popup>
+                                        {position.lat}. {position.long} <br/>
+                                    </Popup>
+                                </Marker>
+                            </LayerGroup>
+                        </LayersControl.Overlay>
+                    </LayersControl>
                 </MapContainer> : <div>Position non récupéré</div>
-            }
-        </div>
-    </div>
-}
+                }
+                </div>
+                </div>
+                }

@@ -76,7 +76,7 @@ export default function Microphone(props) {
             {
                 audio.map((file, index) => (
                     <tr key={index}>
-                        <td>{new Date(file.dateTime).toUTCString()}</td>
+                        <td>{file.dateTime}</td>
                         <td><a href={file.url} target="_blank" download>Télécharger</a></td>
                     </tr>
                 ))
