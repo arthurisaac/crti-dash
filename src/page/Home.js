@@ -3,9 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import {onAuthStateChanged} from "firebase/auth";
 import {auth, db} from '../firebase';
 import '../dashboard.css';
-import {AnyReactComponent} from './Geolocation';
 import {child, get, onValue, ref} from "firebase/database";
-import GoogleMapReact from "google-map-react";
 import DataTable from 'react-data-table-component';
 import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
 
@@ -71,15 +69,15 @@ export default function Home(props) {
     const columns = [
         {
             name: 'Date',
-            selector: row => <div>{row.dateTime}</div>,
+            selector: row => <div style={{ whiteSpace: 'pre-wrap' }}>{row.dateTime}</div>,
             sortable: true,
-            width: '180px'
+            width: '150px'
         },
         {
             name: 'Coordonées',
             selector: row => <div>{row.latitude}, {row.longitude}</div>,
             sortable: false,
-            width: '200px'
+            width: '180px'
         },
         {
             name: 'Adresses',
