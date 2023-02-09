@@ -33,25 +33,30 @@ export default function Locations(props) {
 
                 });
 
-                const location_query = firebaseRef(db, `user/${user.uid}/${phone}/location`);
-                onValue(location_query, (snapshot) => {
-                    if (snapshot.exists()) {
-                        const data = snapshot.val();
-                        const position = data["data"];
-                        if (position) {
-                            setPosition({lat: position.latitude, long: position.longitude})
+                //const location_query = firebaseRef(db, `user/${user.uid}/${phone}/location`);
+                //onValue(location_query, (snapshot) => {
+                get(child(dbRef, `user/${user.uid}/${phone}/location`))
+                    .then((snapshot) => {
+                        if (snapshot.exists()) {
+                            const data = snapshot.val();
+                            const position = data["data"];
+                            if (position) {
+                                setPosition({lat: position.latitude, long: position.longitude})
+                            }
                         }
-                    }
-                });
+                    });
             })
         }
     }, [phone])
 
     return <div className="card" style={{height: '70%'}}>
-        <div style={{height: '100vh', width: '100%'}} ref={exportRef} >
-            <p><button  onClick={() => exportAsImage(exportRef.current, "test")}>Enregistrer</button><button  onClick={() => window.print()}>Imprimer</button></p>
+        <div style={{height: '100vh', width: '100%'}} ref={exportRef}>
+            <p>
+                <button onClick={() => exportAsImage(exportRef.current, "test")}>Enregistrer</button>
+                <button onClick={() => window.print()}>Imprimer</button>
+            </p>
 
-            <Map positions={positions} position={position} suppressMarkers={true} ref={exportRef} />
+            <Map positions={positions} position={position} suppressMarkers={true} ref={exportRef}/>
         </div>
     </div>
 }

@@ -1,4 +1,4 @@
-import {ref, get, child, update} from "firebase/database";
+import {ref, get, child, update, ref as firebaseRef, onValue} from "firebase/database";
 import {auth, db} from '../firebase';
 import React, {useState, useEffect} from 'react';
 import {onAuthStateChanged} from "firebase/auth";
@@ -16,18 +16,23 @@ export default function Photos(props) {
             setPhotos([]);
             onAuthStateChanged(auth, (user) => {
                 setUser(user);
-                const dbRef = ref(db);
-                get(child(dbRef, `user/${user.uid}/${phone}/photos/data`)).then((snapshot) => {
+                //const dbRef = ref(db);
+                //get(child(dbRef, `user/${user.uid}/${phone}/photos/data`)).then((snapshot) => {
+                const photos_query = firebaseRef(db, `user/${user.uid}/${phone}/photos/data`);
+                onValue(photos_query, (snapshot) => {
                     if (snapshot.exists()) {
+                        let arr = [];
                         Object.values(snapshot.val()).map((photo) => {
-                            setPhotos(prevState => [...prevState, photo])
+                            arr.push(photo)
                         })
+                            setPhotos(arr)
                     } else {
                         console.log("No data available");
                     }
                 }).catch((error) => {
-                    console.error(error);
+                    alert(error);
                 });
+
             });
         }
     }, [phone])

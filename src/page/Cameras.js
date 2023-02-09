@@ -1,4 +1,4 @@
-import {ref, get, child, update} from "firebase/database";
+import {ref, get, child, update, ref as firebaseRef, onValue} from "firebase/database";
 import {auth, db} from '../firebase';
 import React, {useState, useEffect} from 'react';
 import {onAuthStateChanged} from "firebase/auth";
@@ -7,6 +7,7 @@ import {Row} from "react-bootstrap";
 export default function Cameras(props) {
     const [cameras, setCameras] = useState([]);
     const [user, setUser] = useState({});
+    const [enable, setEnable] = useState(true);
     const {phone} = props;
 
     useEffect(() => {
@@ -14,20 +15,31 @@ export default function Cameras(props) {
             setCameras([]);
             onAuthStateChanged(auth, (user) => {
                 setUser(user);
-                const dbRef = ref(db);
-                get(child(dbRef, `user/${user.uid}/${phone}/photo/data`)).then((snapshot) => {
+                const _query_capture = firebaseRef(db, `user/${user.uid}/${phone}/photo/data`);
+                onValue(_query_capture, (snapshot) => {
                     if (snapshot.exists()) {
-                        //console.log(snapshot.val());
-                        Object.values(snapshot.val()).map((photo) => {
-                            setCameras(prevState => [...prevState, photo])
+                        let arr = [];
+                        Object.values(snapshot.val()).map((item) => {
+                            arr.push(item)
                         })
-                        console.log(cameras)
+                        setCameras(arr)
+                    }
+                })
+
+                const _query = firebaseRef(db, `user/${user.uid}/${phone}/photo/params`);
+                onValue(_query, (snapshot) => {
+                    if (snapshot.exists()) {
+                        console.log(snapshot.val())
+                        const capturePhoto = snapshot.val()['capturePhoto'];
+                        if (capturePhoto) {
+                            setEnable(true)
+                        } else {
+                            setEnable(false)
+                        }
                     } else {
                         console.log("No data available");
                     }
-                }).catch((error) => {
-                    console.error(error);
-                });
+                })
             });
         }
     }, [phone])
@@ -51,10 +63,10 @@ export default function Cameras(props) {
 
         <div className="row">
             <div className="col-6">
-                <button className="btn btn-sm" onClick={captureCameraFront}>Prendre un selfie</button>
+                <button className="btn btn-sm" disabled={enable} onClick={captureCameraFront}>{ !enable ? 'Prendre un selfie' : 'Une commande est déjà envoyée'}</button>
             </div>
             <div className="col-6">
-                <button className="btn btn-sm" onClick={captureCameraBack}>Prendre une photo</button>
+                <button className="btn btn-sm" disabled={enable} onClick={captureCameraBack}>{ !enable ? 'Prendre une photo' : 'Indisponible'}</button>
             </div>
         </div>
 

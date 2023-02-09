@@ -6,7 +6,7 @@ import DataTable from 'react-data-table-component';
 
 export default function MessageText(props) {
     const [messages, setMessages] = useState([]);
-    const [sms, setSMS] = useState([]);
+    //const [sms, setSMS] = useState([]);
     const {phone} = props;
     const columns = [
         {
@@ -30,7 +30,7 @@ export default function MessageText(props) {
             sortable: true,
         }
     ];
-    const columnsSMS = [
+    /*const columnsSMS = [
         {
             name: 'Numéro de téléphone',
             selector: row => row.smsAddress,
@@ -51,21 +51,24 @@ export default function MessageText(props) {
             selector: row => row.dateTime,
             sortable: true,
         }
-    ];
+    ];*/
 
     useEffect(() => {
         if (phone) {
+            setMessages([])
             onAuthStateChanged(auth, (user) => {
-                const dbRef = ref(db);
-                get(child(dbRef, `user/${user.uid}/${phone}/smses`)).then((snapshot) => {
+                const old_sms_query = firebaseRef(db, `user/${user.uid}/${phone}/smses`);
+                onValue(old_sms_query, (snapshot) => {
                     if (snapshot.exists()) {
-                        const data = snapshot.val();
-                        console.log(data)
-                        setMessages(data);
+                        let arr = [];
+                        Object.values(snapshot.val()).map((item) => {
+                            arr.push(item)
+                        })
+                        setMessages(arr);
                     }
-                })
+                });
 
-                const sms_query = firebaseRef(db, `user/${user.uid}/${phone}/sms/data`);
+                /*const sms_query = firebaseRef(db, `user/${user.uid}/${phone}/sms/data`);
                 onValue(sms_query, (snapshot) => {
                     if (snapshot.exists()) {
                         let arr = [];
@@ -74,19 +77,12 @@ export default function MessageText(props) {
                         })
                         setSMS(arr);
                     }
-                });
+                });*/
             });
         }
     }, [phone])
 
     return <div className="card p-3" style={{height: 'auto'}}>
-        <h1>SMS</h1>
-
-        <DataTable columns={columnsSMS} data={sms} pagination/>
-
-        <br/>
-        <hr/>
-        <br/>
         <h1>Anciens messages</h1>
 
         <DataTable columns={columns} data={messages} pagination/>
