@@ -6,7 +6,7 @@ import {Row} from "react-bootstrap";
 
 export default function Photos(props) {
     const [photos, setPhotos] = useState([]);
-    const [photoCount, setPhotoCount] = useState(10);
+    const [photoCount, setPhotoCount] = useState(100);
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(false);
     const {phone} = props;
