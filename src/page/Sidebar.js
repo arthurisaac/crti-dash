@@ -137,6 +137,13 @@ export default function Sidebar() {
                     </li>
 
                     <li>
+                        <NavLink to="/social/whatsapp-audio">
+                            <i className='bx bxl-whatsapp'/>
+                            <span className="link_name ft">WhatsApp audio</span>
+                        </NavLink>
+                    </li>
+
+                    <li>
                         <NavLink to="/social/messenger">
                             <i className='bx bxl-meta'/>
                             <span className="link_name ft">Messenger</span>

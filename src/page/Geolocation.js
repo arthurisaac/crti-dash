@@ -8,13 +8,6 @@ import {useEffect, useState} from "react";
 
 import {MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup} from 'react-leaflet';
 
-export const AnyReactComponent = ({text, lat, lng}) => <div>
-    {/*<img src={pin} alt="pin" style={{width: 20}}/>*/}
-    <i className='bx bx-mobile' style={{color: 'red'}}/>
-    <div style={{width: 80, backgroundColor: '#fff', fontWeight: 'bold'}}>{text}</div>
-    <div style={{width: 130, color: 'red', backgroundColor: '#fff', fontWeight: 'bold'}}>{lat}, {lng}</div>
-</div>;
-
 export default function Geolocation(props) {
     const [position, setPosition] = useState({lat: 0, long: 0});
     const {phone} = props;
@@ -30,7 +23,7 @@ export default function Geolocation(props) {
                         const data = snapshot.val();
                         const position = data["data"];
                         if (position) {
-                            setPosition({lat: position.latitude, long: position.longitude})
+                            setPosition({lat: position.latitude, long: position.longitude, dateTime: position.dateTime})
                         }
 
                     });
@@ -74,7 +67,7 @@ export default function Geolocation(props) {
                                 />
                                 <Marker position={[position.lat, position.long]}>
                                     <Popup>
-                                        {position.lat}. {position.long} <br/>
+                                        {position.lat}. {position.long} <br/> {position.dateTime}
                                     </Popup>
                                 </Marker>
                             </LayerGroup>
@@ -88,7 +81,7 @@ export default function Geolocation(props) {
                                 />
                                 <Marker position={[position.lat, position.long]}>
                                     <Popup>
-                                        {position.lat}. {position.long} <br/>
+                                        {position.lat}. {position.long} <br/> {position.dateTime}
                                     </Popup>
                                 </Marker>
                             </LayerGroup>

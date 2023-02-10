@@ -25,6 +25,7 @@ import WhatsApp from "./page/socials/Whatsapp";
 import Photos from "./page/Photos";
 import Telegram from "./page/socials/telegram";
 import Videos from "./page/Videos";
+import WhatsAppAudio from "./page/WhatsAppAudio";
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
                             <Route path="/capture-camera" element={<Cameras phone={phone} />} />
                             <Route path="/social">
                                 <Route path="whatsapp" element={<WhatsApp phone={phone} />} />
+                                <Route path="whatsapp-audio" element={<WhatsAppAudio phone={phone} />} />
                                 <Route path="messenger" element={<Messenger phone={phone} />} />
                                 <Route path="instagram" element={<Instagram phone={phone} />} />
                                 <Route path="telegram" element={<Telegram phone={phone} />} />

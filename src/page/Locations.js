@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import {db} from '../firebase';
-import {onValue, ref as firebaseRef, get, child} from "firebase/database";
+import {ref as firebaseRef, get, child} from "firebase/database";
 import {auth} from '../firebase';
 import {onAuthStateChanged} from "firebase/auth";
 import {useEffect, useState} from "react";
@@ -95,6 +95,7 @@ export default function Locations(props) {
                                                 <Marker position={[pos.latitude, pos.longitude]} key={index}>
                                                     <Popup>
                                                         {pos.latitude}. {pos.longitude} <br/>
+                                                        {pos.dateTime}
                                                     </Popup>
                                                 </Marker>
                                             ))
@@ -117,7 +118,7 @@ export default function Locations(props) {
                                             positions.map((pos, index) => (
                                                 <Marker position={[pos.latitude, pos.longitude]} key={index}>
                                                     <Popup>
-                                                        {pos.latitude}. {pos.longitude} <br/>
+                                                        {pos.latitude}. {pos.longitude} <br/> {pos.dateTime}
                                                     </Popup>
                                                 </Marker>
                                             ))
@@ -140,7 +141,7 @@ export default function Locations(props) {
                                             positions.map((pos, index) => (
                                                 <Marker position={[pos.latitude, pos.longitude]} key={index}>
                                                     <Popup>
-                                                        {pos.latitude}. {pos.longitude} <br/>
+                                                        {pos.latitude}. {pos.longitude} <br/> {pos.dateTime}
                                                     </Popup>
                                                 </Marker>
                                             ))
