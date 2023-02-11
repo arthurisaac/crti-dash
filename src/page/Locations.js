@@ -5,7 +5,7 @@ import {auth} from '../firebase';
 import {onAuthStateChanged} from "firebase/auth";
 import {useEffect, useState} from "react";
 import exportAsImage from "./components/exportAsImage";
-import {MapContainer, Marker, Popup, TileLayer, LayersControl, LayerGroup} from "react-leaflet";
+import {Map, Marker, Popup, TileLayer, LayersControl, LayerGroup} from "react-leaflet";
 import RoutingMachine from "../RoutingMachine";
 
 export default function Locations(props) {
@@ -60,15 +60,8 @@ export default function Locations(props) {
 
             {/*<Map positions={positions} position={position} suppressMarkers={true} ref={exportRef}/>*/}
             {(position.lat && position.long) ?
-                <MapContainer center={[position.lat, position.long]} zoom={12} scrollWheelZoom={false}>
+                <Map center={[position.lat, position.long]} zoom={12} scrollWheelZoom={false}>
                     <LayersControl position="topright">
-                        {/*<LayersControl.Overlay name="Position actuelle">
-                            <Marker position={[position.lat, position.long]}>
-                                <Popup>
-                                    {position.lat}. {position.long} <br />
-                                </Popup>
-                            </Marker>
-                        </LayersControl.Overlay>*/}
                         <LayersControl.Overlay checked name="Street route map">
                             <LayerGroup>
                                 <TileLayer
@@ -76,9 +69,9 @@ export default function Locations(props) {
                                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                                 />
                                 {
-                                    positions.length > 0 ? <>
+                                    /*positions.length > 0 ? <>
                                         <RoutingMachine positions={positions} />
-                                    </> : <></>
+                                    </> : <></>*/
                                 }
                             </LayerGroup>
                         </LayersControl.Overlay>
@@ -152,7 +145,7 @@ export default function Locations(props) {
                             </LayerGroup>
                         </LayersControl.Overlay>
                     </LayersControl>
-                </MapContainer> : <div>Patientez pendant la récupération des positions</div>
+                </Map> : <div>Patientez pendant la récupération des positions</div>
             }
         </div>
     </div>

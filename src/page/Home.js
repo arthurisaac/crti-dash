@@ -5,7 +5,9 @@ import {auth, db} from '../firebase';
 import '../dashboard.css';
 import {child, get, onValue, ref} from "firebase/database";
 import DataTable from 'react-data-table-component';
-import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
+import {Map, Marker, Popup, TileLayer} from "react-leaflet";
+import FullscreenControl from 'react-leaflet-fullscreen';
+import 'react-leaflet-fullscreen/dist/styles.css';
 
 const customCourbes = {
     display: "flex",
@@ -279,7 +281,7 @@ export default function Home(props) {
                             </GoogleMapReact> : <div>Position non récupéré</div>
                             }*/}
                             {(position.lat && position.long) ?
-                                <MapContainer center={[position.lat, position.long]} zoom={12} scrollWheelZoom={false}>
+                                <Map center={[position.lat, position.long]} zoom={12} scrollWheelZoom={false}>
                                     <TileLayer
                                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -289,7 +291,8 @@ export default function Home(props) {
                                             {position.lat}. {position.long} <br />
                                         </Popup>
                                     </Marker>
-                                </MapContainer> : <div>Position non récupéré</div>
+                                    <FullscreenControl position="topright" />
+                                </Map> : <div>Position non récupéré</div>
                             }
                         </div>
                     </div>
