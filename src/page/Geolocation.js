@@ -5,10 +5,10 @@ import {child, get, ref as firebaseRef} from "firebase/database";
 import {auth} from '../firebase';
 import {onAuthStateChanged} from "firebase/auth";
 import {useEffect, useState} from "react";
-import FullscreenControl from 'react-leaflet-fullscreen';
-import 'react-leaflet-fullscreen/dist/styles.css';
+import 'leaflet-fullscreen/dist/Leaflet.fullscreen'
+import 'leaflet-fullscreen/dist/leaflet.fullscreen.css'
 
-import {Map, TileLayer, Marker, Popup, LayersControl, LayerGroup} from 'react-leaflet';
+import {MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup} from 'react-leaflet';
 
 export default function Geolocation(props) {
     const [position, setPosition] = useState({lat: 0, long: 0});
@@ -59,7 +59,7 @@ export default function Geolocation(props) {
             </GoogleMapReact> : <div>Position non récupéré</div>
             }*/}
             {(position.lat && position.long) ?
-                <Map center={[position.lat, position.long]} zoom={12} scrollWheelZoom={false}>
+                <MapContainer center={[position.lat, position.long]} zoom={12} scrollWheelZoom={false} fullscreenControl={true}>
                     <LayersControl position="topright">
                         <LayersControl.Overlay checked name="Street map">
                             <LayerGroup>
@@ -72,7 +72,7 @@ export default function Geolocation(props) {
                                         {position.lat}. {position.long} <br/> {position.dateTime}
                                     </Popup>
                                 </Marker>
-                                <FullscreenControl position="topright" />
+
                             </LayerGroup>
                         </LayersControl.Overlay>
                         <LayersControl.Overlay name="Satelitte map">
@@ -90,8 +90,8 @@ export default function Geolocation(props) {
                             </LayerGroup>
                         </LayersControl.Overlay>
                     </LayersControl>
-                </Map> : <div>Position non récupéré</div>
-                }
-                </div>
-                </div>
-                }
+                </MapContainer> : <div>Position non récupéré</div>
+            }
+        </div>
+    </div>
+}

@@ -5,8 +5,10 @@ import {auth} from '../firebase';
 import {onAuthStateChanged} from "firebase/auth";
 import {useEffect, useState} from "react";
 import exportAsImage from "./components/exportAsImage";
-import {Map, Marker, Popup, TileLayer, LayersControl, LayerGroup} from "react-leaflet";
+import {MapContainer, Marker, Popup, TileLayer, LayersControl, LayerGroup} from "react-leaflet";
 import RoutingMachine from "../RoutingMachine";
+import 'leaflet-fullscreen/dist/Leaflet.fullscreen'
+import 'leaflet-fullscreen/dist/leaflet.fullscreen.css'
 
 export default function Locations(props) {
     const [positions, setPositions] = useState([]);
@@ -60,7 +62,7 @@ export default function Locations(props) {
 
             {/*<Map positions={positions} position={position} suppressMarkers={true} ref={exportRef}/>*/}
             {(position.lat && position.long) ?
-                <Map center={[position.lat, position.long]} zoom={12} scrollWheelZoom={false}>
+                <MapContainer center={[position.lat, position.long]} zoom={12} scrollWheelZoom={false} fullscreenControl={true}>
                     <LayersControl position="topright">
                         <LayersControl.Overlay checked name="Street route map">
                             <LayerGroup>
@@ -69,13 +71,13 @@ export default function Locations(props) {
                                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                                 />
                                 {
-                                    /*positions.length > 0 ? <>
+                                    positions.length > 0 ? <>
                                         <RoutingMachine positions={positions} />
-                                    </> : <></>*/
+                                    </> : <></>
                                 }
                             </LayerGroup>
                         </LayersControl.Overlay>
-                        <LayersControl.Overlay name="Street map">
+                        <LayersControl.Overlay checked name="Street map">
                             <LayerGroup>
                                 <TileLayer
                                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -105,20 +107,6 @@ export default function Locations(props) {
                                     maxZoom={20}
                                     subdomains={['mt1', 'mt2', 'mt3']}
                                 />
-                                {
-                                    positions.length > 0 ? <>
-                                        {
-                                            positions.map((pos, index) => (
-                                                <Marker position={[pos.latitude, pos.longitude]} key={index}>
-                                                    <Popup>
-                                                        {pos.latitude}. {pos.longitude} <br/> {pos.dateTime}
-                                                    </Popup>
-                                                </Marker>
-                                            ))
-                                        }
-
-                                    </> : <></>
-                                }
                             </LayerGroup>
                         </LayersControl.Overlay>
                         <LayersControl.Overlay name="Satellite">
@@ -128,24 +116,10 @@ export default function Locations(props) {
                                     maxZoom={20}
                                     subdomains={['mt1', 'mt2', 'mt3']}
                                 />
-                                {
-                                    positions.length > 0 ? <>
-                                        {
-                                            positions.map((pos, index) => (
-                                                <Marker position={[pos.latitude, pos.longitude]} key={index}>
-                                                    <Popup>
-                                                        {pos.latitude}. {pos.longitude} <br/> {pos.dateTime}
-                                                    </Popup>
-                                                </Marker>
-                                            ))
-                                        }
-
-                                    </> : <></>
-                                }
                             </LayerGroup>
                         </LayersControl.Overlay>
                     </LayersControl>
-                </Map> : <div>Patientez pendant la récupération des positions</div>
+                </MapContainer> : <div>Patientez pendant la récupération des positions</div>
             }
         </div>
     </div>

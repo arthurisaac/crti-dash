@@ -5,9 +5,9 @@ import {auth, db} from '../firebase';
 import '../dashboard.css';
 import {child, get, onValue, ref} from "firebase/database";
 import DataTable from 'react-data-table-component';
-import {Map, Marker, Popup, TileLayer} from "react-leaflet";
-import FullscreenControl from 'react-leaflet-fullscreen';
-import 'react-leaflet-fullscreen/dist/styles.css';
+import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
+import 'leaflet-fullscreen/dist/Leaflet.fullscreen'
+import 'leaflet-fullscreen/dist/leaflet.fullscreen.css'
 
 const customCourbes = {
     display: "flex",
@@ -68,6 +68,7 @@ export default function Home(props) {
     const [totalNotification, setTotalNotification] = useState(0);
     const [position, setPosition] = useState({lat: 0, long: 0});
     const [positions, setPositions] = useState([]);
+    const [online, setOnline] = useState("");
     const columns = [
         {
             name: 'Date',
@@ -176,7 +177,7 @@ export default function Home(props) {
                     const data = snapshot.val();
                     const position = data["data"];
                     if (position) {
-                        setPosition({lat: position.latitude, long: position.longitude})
+                        setPosition({lat: position.latitude, long: position.longitude, dateTime: position.dateTime  })
                     }
 
                 });
@@ -185,8 +186,27 @@ export default function Home(props) {
             onAuthStateChanged(auth, (user) => {
                 const query = ref(db, `user/${user.uid}/${phone}/data`);
                 onValue(query, (snapshot) => {
-                    console.log(snapshot.val())
-                    setDevice(snapshot.val())
+                    setDevice(snapshot.val());
+                    let data = snapshot.val()
+                    if (data.online) {
+                        let start = new Date().getTime();
+                        let last = new Date(data.online).getTime()
+                        let elapsed = start - last
+                        let elapsedSeconds = new Date(elapsed).getSeconds()
+                        console.log(elapsedSeconds)
+                        setTimeout(() => {
+                            start = new Date().getTime();
+                            let last = new Date(data.online).getTime()
+                            let elapsed = start - last
+                            let elapsedSeconds = new Date(elapsed).getSeconds()
+                            setOnline("Hors ligne")
+                        }, 26000)
+
+                        if (elapsedSeconds <= 90) setOnline("En ligne")
+                        else setOnline(`Dernière connexion le ${new Date(data.online).toLocaleString()}`)
+                    } else {
+                        setOnline("Inconnu")
+                    }
                 });
             })
         }
@@ -250,6 +270,9 @@ export default function Home(props) {
                         <br/>
                         <h6>Nom de l'appareil</h6>
                         <p>{device?.nameDevice}</p>
+                        <br/>
+                        <h6>Status</h6>
+                        <p>{ online }</p>
                     </div>
                 </div>
             </div>
@@ -281,18 +304,19 @@ export default function Home(props) {
                             </GoogleMapReact> : <div>Position non récupéré</div>
                             }*/}
                             {(position.lat && position.long) ?
-                                <Map center={[position.lat, position.long]} zoom={12} scrollWheelZoom={false}>
+                                <MapContainer center={[position.lat, position.long]} zoom={12} scrollWheelZoom={false} fullscreenControl={true}>
                                     <TileLayer
                                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                                     />
                                     <Marker position={[position.lat, position.long]}>
                                         <Popup>
-                                            {position.lat}. {position.long} <br />
+                                            {position.lat}. {position.long} <br/>
+                                            {position.dateTime}
                                         </Popup>
                                     </Marker>
-                                    <FullscreenControl position="topright" />
-                                </Map> : <div>Position non récupéré</div>
+                                    {/*<FullscreenControl position="topright" />*/}
+                                </MapContainer> : <div>Position non récupéré</div>
                             }
                         </div>
                     </div>
