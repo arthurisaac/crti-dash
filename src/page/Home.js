@@ -193,15 +193,15 @@ export default function Home(props) {
                         let last = new Date(data.online).getTime()
                         let elapsed = start - last
                         let elapsedSeconds = new Date(elapsed).getSeconds()
-                        console.log(elapsedSeconds)
-                        setTimeout(() => {
+                        //console.log(elapsedSeconds)
+                        /*setTimeout(() => {
                             start = new Date().getTime();
                             let last = new Date(data.online).getTime()
                             let elapsed = start - last
                             let elapsedSeconds = new Date(elapsed).getSeconds()
                             setOnline("Hors ligne")
                         }, 26000)
-
+*/
                         if (elapsedSeconds <= 90) setOnline("En ligne")
                         else setOnline(`Dernière connexion le ${new Date(data.online).toLocaleString()}`)
                     } else {

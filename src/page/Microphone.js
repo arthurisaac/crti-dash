@@ -19,9 +19,11 @@ export default function Microphone(props) {
                 const query = ref(db, `user/${user.uid}/${phone}/recording/data`);
                 onValue(query, (snapshot) => {
                     setAudios([]);
-                    Object.values(snapshot.val()).map((item) => {
-                        getUrl(item)
-                    })
+                    if (snapshot.exists()) {
+                        Object.values(snapshot.val()).map((item) => {
+                            getUrl(item)
+                        })
+                    }
                 });
             });
         }
